@@ -5,6 +5,10 @@ run:
 
 test: jest
 
+test-watch: 
+	NODE_ENV="development"
+	BABEL_ENV=test ${BIN}/jest --watch
+
 jest:
 	NODE_ENV="development"
 	BABEL_ENV=test ${BIN}/jest
