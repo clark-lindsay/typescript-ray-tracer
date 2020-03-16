@@ -1,0 +1,21 @@
+{
+  "name": "typescript-ray-tracer",
+  "version": "0.0.1",
+  "main": "index.js",
+  "repository": "https://github.com/clark-lindsay/typescript-ray-tracer.git",
+  "author": "clark-lindsay <clarklindsay96@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "jest": "^25.1.0",
+    "prettier": "^1.19.1",
+    "tslint": "^6.1.0"
+  },
+  "dependencies": {
+    "@babel/preset-typescript": "^7.8.3",
+    "@types/node": "^13.9.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  }
+}
