@@ -44,9 +44,11 @@ describe('a Tuple', () => {
 
   it('can subtract one tuple from another to produce a new tuple', () => {
     const aPoint = point(4, 1, 3);
+    const anotherPoint = point(3, 2, 1);
     const aVector = vector(4, 7, 2);
 
     expect(aPoint.subtract(aVector).isEqualTo(new Tuple(0, -6, 1, 1))).toBeTruthy();
+    expect(aPoint.subtract(anotherPoint).isEqualTo(new Tuple(1, -1, 2, 0))).toBeTruthy();
     expect(aVector.subtract(aVector).isEqualTo(new Tuple(0, 0, 0, 0))).toBeTruthy();
   });
 });
