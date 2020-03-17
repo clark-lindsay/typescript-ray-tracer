@@ -33,6 +33,22 @@ describe('a Tuple', () => {
     expect(someTuple.isEqualTo(theSameTuple)).toBeTruthy();
     expect(someTuple.isEqualTo(differentTuple)).toBeFalsy();
   });
+
+  it('can add two tuples together to produce a new tuple', () => {
+    const aPoint = point(4, -4, 3);
+    const aVector = vector(4, -4, 3);
+
+    expect(aPoint.add(aVector).isEqualTo(new Tuple(8, -8, 6, 1))).toBeTruthy();
+    expect(aVector.add(aVector).isEqualTo(new Tuple(8, -8, 6, 0))).toBeTruthy();
+  });
+
+  it('can subtract one tuple from another to produce a new tuple', () => {
+    const aPoint = point(4, 1, 3);
+    const aVector = vector(4, 7, 2);
+
+    expect(aPoint.subtract(aVector).isEqualTo(new Tuple(0, -6, 1, 1))).toBeTruthy();
+    expect(aVector.subtract(aVector).isEqualTo(new Tuple(0, 0, 0, 0))).toBeTruthy();
+  });
 });
 
 describe('the point function', () => {

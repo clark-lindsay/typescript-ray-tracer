@@ -13,6 +13,14 @@ export class Tuple {
     this.w = w;
   }
 
+  add(other: Tuple): Tuple {
+    return new Tuple(this.x + other.x, this.y + other.y, this.z + other.z, this.w + other.w);
+  }
+
+  subtract(other: Tuple): Tuple {
+    return new Tuple(this.x - other.x, this.y - other.y, this.z - other.z, this.w - other.w);
+  }
+
   isAPoint(): boolean {
     return this.w === 1;
   }
