@@ -1,4 +1,4 @@
-import { Tuple, point } from '../src/Tuple';
+import { Tuple, point, vector } from '../src/Tuple';
 
 describe('a Tuple', () => {
   it('is constructed with four values, which can be referenced with props "x, y, z, and w" respectively', () => {
@@ -29,4 +29,12 @@ describe('the point function', () => {
   const aPoint = point(4, 1, 2);
 
   expect(aPoint.isAPoint()).toBeTruthy();
+  expect(aPoint.isAVector()).toBeFalsy();
+});
+
+describe('the vector function', () => {
+  const aVector = vector(4, 1, 2);
+
+  expect(aVector.isAVector()).toBeTruthy();
+  expect(aVector.isAPoint()).toBeFalsy();
 });

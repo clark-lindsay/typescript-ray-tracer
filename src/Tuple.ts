@@ -23,3 +23,7 @@ export class Tuple {
 export function point(x: number, y: number, z: number): Tuple {
   return new Tuple(x, y, z, 1);
 }
+
+export function vector(x: number, y: number, z: number): Tuple {
+  return new Tuple(x, y, z, 0);
+}
