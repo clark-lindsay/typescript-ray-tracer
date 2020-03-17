@@ -1,3 +1,5 @@
+import { equal } from './equal';
+
 export class Tuple {
   x: number;
   y: number;
@@ -17,6 +19,10 @@ export class Tuple {
 
   isAVector(): boolean {
     return this.w === 0;
+  }
+
+  isEqualTo(other: Tuple): boolean {
+    return equal(this.x, other.x) && equal(this.y, other.y) && equal(this.z, other.z) && equal(this.w, other.w);
   }
 }
 
