@@ -1,26 +1,32 @@
-import { Tuple } from '../src/Tuple';
+import { Tuple, point } from '../src/Tuple';
 
 describe('a Tuple', () => {
   it('is constructed with four values, which can be referenced with props "x, y, z, and w" respectively', () => {
-    const point = new Tuple(4, -4, 3, 1);
+    const aPoint = new Tuple(4, -4, 3, 1);
 
-    expect(point.x).toEqual(4);
-    expect(point.y).toEqual(-4);
-    expect(point.z).toEqual(3);
-    expect(point.w).toEqual(1);
+    expect(aPoint.x).toEqual(4);
+    expect(aPoint.y).toEqual(-4);
+    expect(aPoint.z).toEqual(3);
+    expect(aPoint.w).toEqual(1);
   });
 
   it('when a tuple is contructed with a w value of 1, it is a point', () => {
-    const point = new Tuple(4, -4, 3, 1);
+    const aPoint = new Tuple(4, -4, 3, 1);
 
-    expect(point.isAPoint()).toBeTruthy();
-    expect(point.isAVector()).toBeFalsy();
+    expect(aPoint.isAPoint()).toBeTruthy();
+    expect(aPoint.isAVector()).toBeFalsy();
   });
 
   it('when a tuple is contructed with a w value of 0, it is a vector', () => {
-    const point = new Tuple(4, -4, 3, 0);
+    const vector = new Tuple(4, -4, 3, 0);
 
-    expect(point.isAPoint()).toBeFalsy();
-    expect(point.isAVector()).toBeTruthy();
+    expect(vector.isAPoint()).toBeFalsy();
+    expect(vector.isAVector()).toBeTruthy();
   });
+});
+
+describe('the point function', () => {
+  const aPoint = point(4, 1, 2);
+
+  expect(aPoint.isAPoint()).toBeTruthy();
 });

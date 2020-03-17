@@ -19,3 +19,7 @@ export class Tuple {
     return this.w === 0;
   }
 }
+
+export function point(x: number, y: number, z: number): Tuple {
+  return new Tuple(x, y, z, 1);
+}
