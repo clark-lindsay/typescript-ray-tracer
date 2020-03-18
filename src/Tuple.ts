@@ -36,8 +36,12 @@ export class Tuple {
     return Math.sqrt(dimensions.map(num => Math.pow(num, 2)).reduce((accumulator, num) => accumulator + num));
   }
 
+  normalize(): Tuple {
+    return this.scalarDivide(this.magnitude());
+  }
+
   negate(): Tuple {
-    return new Tuple(this.x * -1, this.y * -1, this.z * -1, this.w * -1);
+    return this.scalarMultiply(-1);
   }
 
   isAPoint(): boolean {

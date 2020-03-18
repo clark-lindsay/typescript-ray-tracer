@@ -94,6 +94,32 @@ describe('a Tuple', () => {
     expect(equal(aVector.magnitude(), Math.sqrt(14))).toBeTruthy();
     expect(equal(aNegativeVector.magnitude(), Math.sqrt(14))).toBeTruthy();
   });
+
+  it('can calculate a normalized vesion of itself, which preserves its direction and makes its magnitude 1', () => {
+    const iUnitVectorTimes4 = vector(4, 0, 0);
+    const jUnitVectorTimes2 = vector(0, 2, 0);
+    const kUnitVector = vector(0, 0, 1);
+    const aVector = vector(1, 2, 3);
+    const aNegativeVector = vector(-1, -2, -3);
+
+    expect(iUnitVectorTimes4.normalize().isEqualTo(new Tuple(1, 0, 0, 0))).toBeTruthy();
+    expect(jUnitVectorTimes2.normalize().isEqualTo(new Tuple(0, 1, 0, 0))).toBeTruthy();
+    expect(kUnitVector.normalize().isEqualTo(new Tuple(0, 0, 1, 0))).toBeTruthy();
+
+    expect(equal(iUnitVectorTimes4.normalize().magnitude(), 1)).toBeTruthy();
+    expect(equal(jUnitVectorTimes2.normalize().magnitude(), 1)).toBeTruthy();
+    expect(equal(kUnitVector.normalize().magnitude(), 1)).toBeTruthy();
+
+    expect(
+      aVector.normalize().isEqualTo(new Tuple(1 / Math.sqrt(14), 2 / Math.sqrt(14), 3 / Math.sqrt(14), 0))
+    ).toBeTruthy();
+    expect(equal(aVector.normalize().magnitude(), 1)).toBeTruthy();
+
+    expect(
+      aNegativeVector.normalize().isEqualTo(new Tuple(-1 / Math.sqrt(14), -2 / Math.sqrt(14), -3 / Math.sqrt(14), 0))
+    ).toBeTruthy();
+    expect(equal(aNegativeVector.normalize().magnitude(), 1)).toBeTruthy();
+  });
 });
 
 describe('the point function', () => {
