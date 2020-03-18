@@ -51,6 +51,14 @@ describe('a Tuple', () => {
     expect(aPoint.subtract(anotherPoint).isEqualTo(new Tuple(1, -1, 2, 0))).toBeTruthy();
     expect(aVector.subtract(aVector).isEqualTo(new Tuple(0, 0, 0, 0))).toBeTruthy();
   });
+
+  it('can negate itself, returning a new Tuple', () => {
+    const aPoint = point(4, 1, 3);
+    const aVector = vector(4, 7, 2);
+
+    expect(aPoint.negate().isEqualTo(new Tuple(-4, -1, -3, -1)));
+    expect(aVector.negate().isEqualTo(new Tuple(-4, -7, -2, 0)));
+  });
 });
 
 describe('the point function', () => {

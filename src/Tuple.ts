@@ -21,6 +21,10 @@ export class Tuple {
     return new Tuple(this.x - other.x, this.y - other.y, this.z - other.z, this.w - other.w);
   }
 
+  negate(): Tuple {
+    return new Tuple(this.x * -1, this.y * -1, this.z * -1, this.w * -1);
+  }
+
   isAPoint(): boolean {
     return this.w === 1;
   }
