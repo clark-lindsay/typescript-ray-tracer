@@ -37,6 +37,9 @@ export class Tuple {
   }
 
   normalize(): Tuple {
+    if (this.isAPoint()) {
+      throw new Error('"normalize" can not be called on a point; it does not make mathematical sense');
+    }
     return this.scalarDivide(this.magnitude());
   }
 

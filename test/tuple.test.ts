@@ -120,6 +120,12 @@ describe('a Tuple', () => {
     ).toBeTruthy();
     expect(equal(aNegativeVector.normalize().magnitude(), 1)).toBeTruthy();
   });
+
+  it('will throw an error if "normalize" is called on a point', () => {
+    const aPoint = point(1, 2, 3);
+
+    expect(() => aPoint.normalize()).toThrow();
+  });
 });
 
 describe('the point function', () => {
