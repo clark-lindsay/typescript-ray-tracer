@@ -141,6 +141,22 @@ describe('a Tuple', () => {
     expect(() => aPoint.dotProduct(aVector)).toThrow();
     expect(() => aVector.dotProduct(aPoint)).toThrow();
   });
+
+  it('can calculate the cross product of two vectors', () => {
+    const aVector = vector(1, 2, 3);
+    const anotherVector = vector(2, 3, 4);
+
+    expect(aVector.crossProduct(anotherVector).isEqualTo(vector(-1, 2, -1))).toBeTruthy();
+    expect(anotherVector.crossProduct(aVector).isEqualTo(vector(1, -2, 1))).toBeTruthy();
+  });
+
+  it('will throw an error if the "crossProduct" function is called on a point, or given a point as an argument', () => {
+    const aVector = vector(1, 2, 3);
+    const aPoint = point(1, 2, 3);
+
+    expect(() => aPoint.crossProduct(aVector)).toThrow();
+    expect(() => aVector.crossProduct(aPoint)).toThrow();
+  });
 });
 
 describe('the point function', () => {

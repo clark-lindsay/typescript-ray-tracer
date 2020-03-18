@@ -54,6 +54,19 @@ export class Tuple {
     return dimensions.map((num, index) => num * otherDimensions[index]).reduce((accumulator, num) => accumulator + num);
   }
 
+  crossProduct(other: Tuple): Tuple {
+    if (this.isAPoint() || other.isAPoint()) {
+      throw new Error(
+        '"crossProduct" cannot have a point as either of its arguments; this calculation is meaningless when it involves a point'
+      );
+    }
+    return vector(
+      this.y * other.z - this.z * other.y,
+      this.z * other.x - this.x * other.z,
+      this.x * other.y - this.y * other.x
+    );
+  }
+
   negate(): Tuple {
     return this.scalarMultiply(-1);
   }
