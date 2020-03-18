@@ -126,6 +126,13 @@ describe('a Tuple', () => {
 
     expect(() => aPoint.normalize()).toThrow();
   });
+
+  it('can calculate the dot product of itself and another tuple', () => {
+    const aVector = vector(1, 2, 3);
+    const anotherVector = vector(4, 5, 6);
+
+    expect(equal(aVector.dotProduct(anotherVector), 32)).toBeTruthy();
+  });
 });
 
 describe('the point function', () => {
