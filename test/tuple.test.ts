@@ -69,6 +69,16 @@ describe('a Tuple', () => {
     expect(aVector.scalarMultiply(2).isEqualTo(new Tuple(8, 14, 4, 0)));
     expect(aVector.scalarMultiply(0.5).isEqualTo(new Tuple(2, 3.5, 1, 0)));
   });
+
+  it('can return a quotient of scalar division of itself', () => {
+    const aPoint = point(4, 1, 3);
+    const aVector = vector(4, 7, 2);
+
+    expect(aPoint.scalarDivide(0.5).isEqualTo(new Tuple(8, 2, 6, 2)));
+    expect(aPoint.scalarDivide(2).isEqualTo(new Tuple(2, 0.5, 1.5, 0.5)));
+    expect(aVector.scalarDivide(0.5).isEqualTo(new Tuple(8, 14, 4, 0)));
+    expect(aVector.scalarDivide(2).isEqualTo(new Tuple(2, 3.5, 1, 0)));
+  });
 });
 
 describe('the point function', () => {

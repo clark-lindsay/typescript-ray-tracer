@@ -26,6 +26,11 @@ export class Tuple {
     return new Tuple(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
   }
 
+  scalarDivide(scalar: number): Tuple {
+    const dimensions = [this.x, this.y, this.z, this.w].map(num => num / scalar);
+    return new Tuple(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
+  }
+
   negate(): Tuple {
     return new Tuple(this.x * -1, this.y * -1, this.z * -1, this.w * -1);
   }
