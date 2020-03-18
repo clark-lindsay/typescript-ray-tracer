@@ -1,4 +1,5 @@
 import { Tuple, point, vector } from '../src/Tuple';
+import { equal } from '../src/equal';
 
 describe('a Tuple', () => {
   it('is constructed with four values, which can be referenced with props "x, y, z, and w" respectively', () => {
@@ -56,28 +57,42 @@ describe('a Tuple', () => {
     const aPoint = point(4, 1, 3);
     const aVector = vector(4, 7, 2);
 
-    expect(aPoint.negate().isEqualTo(new Tuple(-4, -1, -3, -1)));
-    expect(aVector.negate().isEqualTo(new Tuple(-4, -7, -2, 0)));
+    expect(aPoint.negate().isEqualTo(new Tuple(-4, -1, -3, -1))).toBeTruthy();
+    expect(aVector.negate().isEqualTo(new Tuple(-4, -7, -2, 0))).toBeTruthy();
   });
 
   it('can return a scalar multiple of itself', () => {
     const aPoint = point(4, 1, 3);
     const aVector = vector(4, 7, 2);
 
-    expect(aPoint.scalarMultiply(2).isEqualTo(new Tuple(8, 2, 6, 2)));
-    expect(aPoint.scalarMultiply(0.5).isEqualTo(new Tuple(2, 0.5, 1.5, 0.5)));
-    expect(aVector.scalarMultiply(2).isEqualTo(new Tuple(8, 14, 4, 0)));
-    expect(aVector.scalarMultiply(0.5).isEqualTo(new Tuple(2, 3.5, 1, 0)));
+    expect(aPoint.scalarMultiply(2).isEqualTo(new Tuple(8, 2, 6, 2))).toBeTruthy();
+    expect(aPoint.scalarMultiply(0.5).isEqualTo(new Tuple(2, 0.5, 1.5, 0.5))).toBeTruthy();
+    expect(aVector.scalarMultiply(2).isEqualTo(new Tuple(8, 14, 4, 0))).toBeTruthy();
+    expect(aVector.scalarMultiply(0.5).isEqualTo(new Tuple(2, 3.5, 1, 0))).toBeTruthy();
   });
 
   it('can return a quotient of scalar division of itself', () => {
     const aPoint = point(4, 1, 3);
     const aVector = vector(4, 7, 2);
 
-    expect(aPoint.scalarDivide(0.5).isEqualTo(new Tuple(8, 2, 6, 2)));
-    expect(aPoint.scalarDivide(2).isEqualTo(new Tuple(2, 0.5, 1.5, 0.5)));
-    expect(aVector.scalarDivide(0.5).isEqualTo(new Tuple(8, 14, 4, 0)));
-    expect(aVector.scalarDivide(2).isEqualTo(new Tuple(2, 3.5, 1, 0)));
+    expect(aPoint.scalarDivide(0.5).isEqualTo(new Tuple(8, 2, 6, 2))).toBeTruthy();
+    expect(aPoint.scalarDivide(2).isEqualTo(new Tuple(2, 0.5, 1.5, 0.5))).toBeTruthy();
+    expect(aVector.scalarDivide(0.5).isEqualTo(new Tuple(8, 14, 4, 0))).toBeTruthy();
+    expect(aVector.scalarDivide(2).isEqualTo(new Tuple(2, 3.5, 1, 0))).toBeTruthy();
+  });
+
+  it('can calculate its magnitude', () => {
+    const iUnitVector = vector(1, 0, 0);
+    const jUnitVector = vector(0, 1, 0);
+    const kUnitVector = vector(0, 0, 1);
+    const aVector = vector(1, 2, 3);
+    const aNegativeVector = vector(-1, -2, -3);
+
+    expect(equal(iUnitVector.magnitude(), 1)).toBeTruthy();
+    expect(equal(jUnitVector.magnitude(), 1)).toBeTruthy();
+    expect(equal(kUnitVector.magnitude(), 1)).toBeTruthy();
+    expect(equal(aVector.magnitude(), Math.sqrt(14))).toBeTruthy();
+    expect(equal(aNegativeVector.magnitude(), Math.sqrt(14))).toBeTruthy();
   });
 });
 

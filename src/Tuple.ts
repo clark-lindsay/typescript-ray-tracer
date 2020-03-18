@@ -27,8 +27,13 @@ export class Tuple {
   }
 
   scalarDivide(scalar: number): Tuple {
-    const dimensions = [this.x, this.y, this.z, this.w].map(num => num / scalar);
-    return new Tuple(dimensions[0], dimensions[1], dimensions[2], dimensions[3]);
+    const scaledDimensions = [this.x, this.y, this.z, this.w].map(num => num / scalar);
+    return new Tuple(scaledDimensions[0], scaledDimensions[1], scaledDimensions[2], scaledDimensions[3]);
+  }
+
+  magnitude(): number {
+    const dimensions = [this.x, this.y, this.z, this.w];
+    return Math.sqrt(dimensions.map(num => Math.pow(num, 2)).reduce((accumulator, num) => accumulator + num));
   }
 
   negate(): Tuple {
