@@ -44,6 +44,11 @@ export class Tuple {
   }
 
   dotProduct(other: Tuple): number {
+    if (this.isAPoint() || other.isAPoint()) {
+      throw new Error(
+        '"dotProduct" cannot have a point as either of its arguments; this calculation is meaningless when it involves a point'
+      );
+    }
     const dimensions = [this.x, this.y, this.z, this.w];
     const otherDimensions = [other.x, other.y, other.z, other.w];
     return dimensions.map((num, index) => num * otherDimensions[index]).reduce((accumulator, num) => accumulator + num);
