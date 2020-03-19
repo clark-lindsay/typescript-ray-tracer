@@ -21,4 +21,14 @@ describe('the Canvas class', () => {
 
     expect(canvas.getPixel(2, 2).isEqualTo(blue)).toBeTruthy();
   });
+
+  it('can produce a PPM file, in the "Plain PPM" format, with a proper header and format', () => {
+    const canvas = new Canvas(4, 3);
+    const ppmImage = canvas.toPPM();
+
+    expect(ppmImage.slice(0, 2)).toEqual('P3');
+    expect(ppmImage[3]).toEqual('4');
+    expect(ppmImage[5]).toEqual('3');
+    expect(ppmImage.slice(7, 10)).toEqual('255');
+  });
 });

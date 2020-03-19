@@ -30,4 +30,8 @@ export class Canvas {
   setPixel(x: number, y: number, color: Color): void {
     this.grid[x][y] = color;
   }
+
+  toPPM(): string {
+    return `P3\n${this.width} ${this.height}\n255`;
+  }
 }
