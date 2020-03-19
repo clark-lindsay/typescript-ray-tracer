@@ -1,9 +1,9 @@
 import { Color } from './Color';
 
 export class Canvas {
-  grid: Color[][];
-  width: number;
-  height: number;
+  private grid: Color[][];
+  private width: number;
+  private height: number;
 
   constructor(width: number, height: number) {
     let row = new Array(width).fill(new Color(0, 0, 0));
