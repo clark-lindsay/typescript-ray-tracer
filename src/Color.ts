@@ -24,4 +24,8 @@ export class Color {
     const newColorAsTuple = this.rgb.subtract(other.rgb);
     return new Color(newColorAsTuple.x, newColorAsTuple.y, newColorAsTuple.z);
   }
+
+  multiply(other: Color): Color {
+    return new Color(this.red() * other.red(), this.green() * other.green(), this.blue() * other.blue());
+  }
 }
