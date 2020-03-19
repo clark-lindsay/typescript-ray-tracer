@@ -15,4 +15,11 @@ describe('the Color class', () => {
 
     expect(color.add(anotherColor).isEqualTo(new Color(0.5, 2.4, 4.7))).toBeTruthy();
   });
+
+  it('can subtract another color from itself to produce a new color', () => {
+    const color = new Color(-0.5, 0.4, 1.7);
+    const anotherColor = new Color(1, 2, 3);
+
+    expect(color.subtract(anotherColor).isEqualTo(new Color(-1.5, -1.6, -1.3))).toBeTruthy();
+  });
 });

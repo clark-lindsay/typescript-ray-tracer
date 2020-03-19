@@ -19,4 +19,9 @@ export class Color {
     const newColorAsTuple = this.rgb.add(other.rgb);
     return new Color(newColorAsTuple.x, newColorAsTuple.y, newColorAsTuple.z);
   }
+
+  subtract(other: Color): Color {
+    const newColorAsTuple = this.rgb.subtract(other.rgb);
+    return new Color(newColorAsTuple.x, newColorAsTuple.y, newColorAsTuple.z);
+  }
 }
