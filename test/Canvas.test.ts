@@ -13,4 +13,12 @@ describe('the Canvas class', () => {
       }
     }
   });
+
+  it('can set a particular pixel in the grid to a certain color', () => {
+    const canvas = new Canvas(5, 5);
+    const blue = new Color(0, 0, 1);
+    canvas.setPixel(2, 2, blue);
+
+    expect(canvas.getPixel(2, 2).isEqualTo(blue)).toBeTruthy();
+  });
 });

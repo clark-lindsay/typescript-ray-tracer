@@ -22,4 +22,12 @@ export class Canvas {
   getGrid(): Color[][] {
     return this.grid;
   }
+
+  getPixel(x: number, y: number): Color {
+    return this.grid[x][y];
+  }
+
+  setPixel(x: number, y: number, color: Color): void {
+    this.grid[x][y] = color;
+  }
 }
