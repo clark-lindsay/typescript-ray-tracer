@@ -71,7 +71,7 @@ describe('the Canvas class', () => {
     expect(ppmImage[5]).toEqual('3');
     expect(ppmImage.slice(7, 10)).toEqual('255');
     expect(ppmImage.slice(11)).toEqual(
-      '255 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 255'
+      '255 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 255\n'
     );
   });
 });

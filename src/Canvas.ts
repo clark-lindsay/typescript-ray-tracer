@@ -49,7 +49,6 @@ export class Canvas {
       }
       result = setCharAt(result, result.length - 1, '\n');
     }
-    result = result.trimRight();
     return result;
   }
 
