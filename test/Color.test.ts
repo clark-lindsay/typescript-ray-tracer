@@ -29,4 +29,14 @@ describe('the Color class', () => {
 
     expect(color.multiply(anotherColor).isEqualTo(new Color(-0.5, 0.8, 5.1))).toBeTruthy();
   });
+
+  it('can scale a color to a particular color scale, defined by a scaleMin and a scaleMax', () => {
+    const unscaledColor = new Color(-1, 1.7, 0.5);
+    const targetColorFor255 = new Color(0, 255, 128);
+    const targetColorFor1024 = new Color(0, 1024, 512);
+
+    expect(unscaledColor.convertToScale().isEqualTo(targetColorFor255)).toBeTruthy();
+    expect(unscaledColor.convertToScale(0, 255).isEqualTo(targetColorFor255)).toBeTruthy();
+    expect(unscaledColor.convertToScale(0, 1024).isEqualTo(targetColorFor1024)).toBeTruthy();
+  });
 });

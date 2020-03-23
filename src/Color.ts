@@ -28,4 +28,14 @@ export class Color {
   multiply(other: Color): Color {
     return new Color(this.red() * other.red(), this.green() * other.green(), this.blue() * other.blue());
   }
+
+  convertToScale(scaleMin: number = 0, scaleMax: number = 255): Color {
+    let [resultRed, resultGreen, resultBlue] = [this.red(), this.green(), this.blue()]
+      .map(colorIntensity => Math.max(scaleMin, colorIntensity))
+      .map(colorIntensity => colorIntensity * scaleMax)
+      .map(colorIntensity => Math.ceil(colorIntensity))
+      .map(colorIntensity => Math.min(scaleMax, colorIntensity));
+
+    return new Color(resultRed, resultGreen, resultBlue);
+  }
 }
