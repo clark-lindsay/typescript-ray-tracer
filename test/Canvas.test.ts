@@ -1,5 +1,6 @@
 import { Canvas } from '../src/Canvas';
 import { Color } from '../src/Color';
+import { range } from '../src/util';
 
 describe('the Canvas class', () => {
   it('can be initialized with a width and a height, and all of the pixels will have a color of (0, 0, 0)', () => {
@@ -73,5 +74,21 @@ describe('the Canvas class', () => {
     expect(ppmImage.slice(11)).toEqual(
       '255 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 255\n'
     );
+  });
+
+  it('does not produce a line longer than 70 chars when producing a PPM', () => {
+    const canvas = new Canvas(10, 2);
+    const color = new Color(1, 0.8, 0.6);
+    for (const i of range(0, 10)) {
+      for (const j of range(0, 2)) {
+        canvas.setPixel(i, j, color);
+      }
+    }
+    const ppmImage = canvas.toPPM();
+    const linesFourThroughSeven =
+      '255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153\n';
+    const linesOfPPM = ppmImage.split('\n');
+
+    expect(linesOfPPM[3] + linesOfPPM[4] + linesOfPPM[5] + linesOfPPM[6]).toEqual(linesFourThroughSeven);
   });
 });
