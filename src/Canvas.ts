@@ -1,5 +1,5 @@
 import { Color } from './Color';
-import { setCharAt, range } from './util';
+import { setCharAt, range, hasLineAboveLength } from './util';
 
 export class Canvas {
   private grid: Color[][];
@@ -43,13 +43,36 @@ export class Canvas {
     const plainPPMHeader = `P3\n${this.width} ${this.height}\n255\n`;
     let result = plainPPMHeader;
     for (const row of this.grid) {
+      result += rowToPPM(row);
+    }
+    return result;
+
+    function rowToPPM(row: Color[]): string {
+      let result = '';
       for (const pixel of row) {
         const scaledPixel = pixel.convertToScale();
         result += `${scaledPixel.red()} ${scaledPixel.green()} ${scaledPixel.blue()} `;
       }
-      result = setCharAt(result, result.length - 1, '\n');
+      result = breakPixelListIntoLines(result, 70);
+      return result;
     }
-    return result;
+
+    function breakPixelListIntoLines(str: string, maxLineLength: number): string {
+      let result = str;
+      if (result.length > maxLineLength) {
+        let searchStartIndex = 0;
+        while (hasLineAboveLength(result, maxLineLength)) {
+          result = setCharAt(
+            result,
+            result.substring(searchStartIndex, searchStartIndex + maxLineLength).lastIndexOf(' '),
+            '\n'
+          );
+          searchStartIndex += maxLineLength;
+        }
+      }
+      result = setCharAt(result, result.length - 1, '\n');
+      return result;
+    }
   }
 
   private checkIndexBounds(x: number, y: number): void {

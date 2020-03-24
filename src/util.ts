@@ -9,3 +9,10 @@ export function range(start: number, end: number): number[] {
   }
   return Array.from(new Array(end - start), (_, i) => i + start);
 }
+
+export function hasLineAboveLength(str: string, maxLineLength: number): boolean {
+  return str
+    .split('\n')
+    .map(line => line.length > maxLineLength)
+    .reduce((anyLineTooLong, thisLineTooLong) => anyLineTooLong || thisLineTooLong);
+}

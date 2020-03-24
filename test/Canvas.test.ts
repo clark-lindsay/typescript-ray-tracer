@@ -89,6 +89,13 @@ describe('the Canvas class', () => {
       '255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153\n';
     const linesOfPPM = ppmImage.split('\n');
 
-    expect(linesOfPPM[3] + linesOfPPM[4] + linesOfPPM[5] + linesOfPPM[6]).toEqual(linesFourThroughSeven);
+    for (const line of linesOfPPM) {
+      expect(line.length).toBeLessThanOrEqual(70);
+    }
+    const linesConcatenated = linesOfPPM
+      .slice(3, 7)
+      .map(line => line + '\n')
+      .reduce((totalGridRepresentation, line) => totalGridRepresentation + line);
+    expect(linesConcatenated).toEqual(linesFourThroughSeven);
   });
 });
