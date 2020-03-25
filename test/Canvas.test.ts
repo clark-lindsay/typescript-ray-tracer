@@ -2,7 +2,6 @@ import { readdir, unlink } from 'fs';
 
 import { Canvas } from '../src/Canvas';
 import { Color } from '../src/Color';
-import { range } from '../src/util';
 
 describe('the Canvas class', () => {
   it('can be initialized with a width and a height, and all of the pixels will have a color of (0, 0, 0)', () => {
@@ -78,28 +77,12 @@ describe('the Canvas class', () => {
     );
   });
 
-  it('does not produce a line longer than 70 chars when producing a PPM', () => {
-    const canvas = new Canvas(10, 2);
-    const color = new Color(1, 0.8, 0.6);
-    for (const i of range(0, 10)) {
-      for (const j of range(0, 2)) {
-        canvas.setPixel(i, j, color);
-      }
-    }
-    const ppmImage = canvas.toPPM();
-    const linesOfPPM = ppmImage.split('\n');
-
-    for (const line of linesOfPPM) {
-      expect(line.length).toBeLessThanOrEqual(70);
-    }
-  });
-
-  it('can print a very large grid to PPM format', () => {
+  it('can print a very large grid to PPM format', async () => {
     const canvas = new Canvas(1000, 1000);
     const testFileName = 'test.ppm';
     canvas.writePPM(testFileName);
 
-    readdir('./', (error, files) => {
+    await readdir('./', (error, files) => {
       if (error) {
         console.error(error);
         fail();
@@ -107,7 +90,7 @@ describe('the Canvas class', () => {
       expect(files.includes(testFileName)).toBeTruthy();
     });
 
-    unlink(`./${testFileName}`, error => {
+    await unlink(`./${testFileName}`, error => {
       if (error) {
         console.log(error);
         fail();

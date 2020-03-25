@@ -4,12 +4,17 @@ import { point, vector } from '../../src/Tuple';
 import { Canvas } from '../../src/Canvas';
 import { Color } from '../../src/Color';
 
-const projectile = { position: point(0, 0, 0), velocity: vector(30, 35, 0) };
-const environment = { gravity: vector(0, -9.81, 0), wind: vector(3, 1, 2) };
+const projectile = {
+  position: point(0, 0, 0),
+  velocity: vector(1, 1.8, 0)
+    .normalize()
+    .scalarMultiply(11.25)
+};
+const environment = { gravity: vector(0, -0.1, 0), wind: vector(-0.01, 0, 0) };
 cannon(projectile, environment);
 
 export function cannon(projectile: Projectile, environment: Environment): void {
-  const canvas = new Canvas(1000, 1000);
+  const canvas = new Canvas(900, 550);
   markLocation(0, 0);
   let travellingProjectile = tick(projectile, environment);
 
@@ -26,7 +31,10 @@ export function cannon(projectile: Projectile, environment: Environment): void {
 
   function markLocation(x: number, y: number) {
     const projectileColor = new Color(0.5, 0, 0.5);
-    canvas.setPixel(x, canvas.getHeight() - y - 1, projectileColor);
+    const canvasCoordinates = (x: number, y: number) => [x, canvas.getHeight() - y - 1];
+
+    const [shiftedX, shiftedY] = canvasCoordinates(x, y);
+    canvas.setPixel(shiftedX, shiftedY, projectileColor);
   }
 
   function floorCoordinates(x: number, y: number): [number, number] {

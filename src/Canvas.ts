@@ -75,28 +75,5 @@ function rowToPPM(row: Color[]): string {
     const scaledPixel = pixel.convertToScale();
     pixels.push(`${scaledPixel.red()} ${scaledPixel.green()} ${scaledPixel.blue()} `);
   }
-  let result = breakPixelListIntoLines(pixels.join(''));
-  return result;
-}
-
-function breakPixelListIntoLines(str: string): string {
-  let result = str;
-  const maxLineLength = 70;
-  if (result.length > maxLineLength) {
-    result = toLines(result, 60);
-  }
-  result = result.trimRight() + '\n';
-  return result;
-
-  function toLines(text: string, approximateLineLength: number) {
-    let searchStartIndex = 0;
-    const resultLines = [];
-    while (searchStartIndex + approximateLineLength < text.length) {
-      let nextSpaceIndex = text.indexOf(' ', searchStartIndex + approximateLineLength);
-      const nextLine = text.slice(searchStartIndex, nextSpaceIndex).trimRight();
-      resultLines.push(nextLine);
-      searchStartIndex = nextSpaceIndex + 1;
-    }
-    return resultLines.join('\n');
-  }
+  return pixels.join('').trimRight() + '\n';
 }
