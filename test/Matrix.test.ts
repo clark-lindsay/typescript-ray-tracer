@@ -33,4 +33,8 @@ describe('the Matrix class', () => {
     expect(threeByThree.at(1, 1)).toEqual(4);
     expect(threeByThree.at(2, 2)).toEqual(8);
   });
+
+  it('can determine equality between two matrices, even when floating-point numbers are close', () => {
+    const matrix = new Matrix();
+  });
 });

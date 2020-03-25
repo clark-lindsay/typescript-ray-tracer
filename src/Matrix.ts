@@ -1,3 +1,5 @@
+import { equal } from './equal';
+
 export class Matrix {
   private height: number;
   private width: number;
@@ -23,4 +25,6 @@ export class Matrix {
   getHeight(): number {
     return this.height;
   }
+
+  isEqualTo(other: Matrix): boolean {}
 }
