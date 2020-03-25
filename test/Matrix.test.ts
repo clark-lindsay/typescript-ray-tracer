@@ -13,4 +13,24 @@ describe('the Matrix class', () => {
     expect(matrix.at(2, 3)).toEqual(11);
     expect(matrix.at(3, 3)).toEqual(15);
   });
+
+  it('can also be instantiated as a 2x2 or a 3x3', () => {
+    const twoByTwo = new Matrix([range(0, 2), range(2, 4)]);
+    const threeByThree = new Matrix([range(0, 3), range(3, 6), range(6, 9)]);
+
+    expect(twoByTwo.getHeight()).toEqual(2);
+    expect(twoByTwo.getWidth()).toEqual(2);
+    expect(threeByThree.getHeight()).toEqual(3);
+    expect(threeByThree.getWidth()).toEqual(3);
+
+    expect(twoByTwo.at(0, 0)).toEqual(0);
+    expect(twoByTwo.at(0, 1)).toEqual(1);
+    expect(twoByTwo.at(1, 0)).toEqual(2);
+    expect(twoByTwo.at(1, 1)).toEqual(3);
+
+    expect(threeByThree.at(0, 0)).toEqual(0);
+    expect(threeByThree.at(0, 2)).toEqual(2);
+    expect(threeByThree.at(1, 1)).toEqual(4);
+    expect(threeByThree.at(2, 2)).toEqual(8);
+  });
 });
