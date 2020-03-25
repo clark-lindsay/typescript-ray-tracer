@@ -1,14 +1,23 @@
-import { Tuple } from './Tuple';
+import { vector } from './Tuple';
 
 export class Color {
-  rgb: Tuple = new Tuple(0, 0, 0, 0);
-  red = () => this.rgb.x;
-  green = () => this.rgb.y;
-  blue = () => this.rgb.z;
+  private r: number;
+  private g: number;
+  private b: number;
 
   constructor(red: number, green: number, blue: number) {
-    [this.rgb.x, this.rgb.y, this.rgb.z] = [red, green, blue];
+    [this.r, this.g, this.b] = [red, green, blue];
     return this;
+  }
+
+  red(): number {
+    return this.r;
+  }
+  green(): number {
+    return this.g;
+  }
+  blue(): number {
+    return this.b;
   }
 
   isEqualTo(other: Color): boolean {
@@ -16,12 +25,16 @@ export class Color {
   }
 
   add(other: Color): Color {
-    const newColorAsTuple = this.rgb.add(other.rgb);
+    const thisAsTuple = vector(this.red(), this.green(), this.blue());
+    const otherColorAsTuple = vector(other.red(), other.green(), other.blue());
+    const newColorAsTuple = thisAsTuple.add(otherColorAsTuple);
     return new Color(newColorAsTuple.x, newColorAsTuple.y, newColorAsTuple.z);
   }
 
   subtract(other: Color): Color {
-    const newColorAsTuple = this.rgb.subtract(other.rgb);
+    const thisAsTuple = vector(this.red(), this.green(), this.blue());
+    const otherColorAsTuple = vector(other.red(), other.green(), other.blue());
+    const newColorAsTuple = thisAsTuple.subtract(otherColorAsTuple);
     return new Color(newColorAsTuple.x, newColorAsTuple.y, newColorAsTuple.z);
   }
 

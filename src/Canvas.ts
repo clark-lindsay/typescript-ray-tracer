@@ -1,5 +1,7 @@
+import { createWriteStream } from 'fs';
+
 import { Color } from './Color';
-import { setCharAt, range, hasLineAboveLength } from './util';
+import { range } from './util';
 
 export class Canvas {
   private grid: Color[][];
@@ -39,45 +41,62 @@ export class Canvas {
     this.grid[y][x] = color;
   }
 
+  writePPM(filePath: string): void {
+    const plainPPMHeader = `P3\n${this.width} ${this.height}\n255\n`;
+    const writeStream = createWriteStream(filePath, { flags: 'a' });
+    writeStream.write(plainPPMHeader);
+    for (const row of this.grid) {
+      writeStream.write(rowToPPM(row));
+    }
+    writeStream.end();
+  }
+
   toPPM(): string {
     const plainPPMHeader = `P3\n${this.width} ${this.height}\n255\n`;
     let result = plainPPMHeader;
+    const rows = [];
     for (const row of this.grid) {
-      result += rowToPPM(row);
+      rows.push(rowToPPM(row));
     }
+    result += rows.join('');
     return result;
-
-    function rowToPPM(row: Color[]): string {
-      let result = '';
-      for (const pixel of row) {
-        const scaledPixel = pixel.convertToScale();
-        result += `${scaledPixel.red()} ${scaledPixel.green()} ${scaledPixel.blue()} `;
-      }
-      result = breakPixelListIntoLines(result, 70);
-      return result;
-    }
-
-    function breakPixelListIntoLines(str: string, maxLineLength: number): string {
-      let result = str;
-      if (result.length > maxLineLength) {
-        let searchStartIndex = 0;
-        while (hasLineAboveLength(result, maxLineLength)) {
-          result = setCharAt(
-            result,
-            result.substring(searchStartIndex, searchStartIndex + maxLineLength).lastIndexOf(' '),
-            '\n'
-          );
-          searchStartIndex += maxLineLength;
-        }
-      }
-      result = setCharAt(result, result.length - 1, '\n');
-      return result;
-    }
   }
 
   private checkIndexBounds(x: number, y: number): void {
     if (x >= this.width || x < 0 || y >= this.height || y < 0) {
       throw new Error('The index for a pixel must be within the bounds of the grid: ( [0, width), [0, height) )');
     }
+  }
+}
+
+function rowToPPM(row: Color[]): string {
+  const pixels = [];
+  for (const pixel of row) {
+    const scaledPixel = pixel.convertToScale();
+    pixels.push(`${scaledPixel.red()} ${scaledPixel.green()} ${scaledPixel.blue()} `);
+  }
+  let result = breakPixelListIntoLines(pixels.join(''));
+  return result;
+}
+
+function breakPixelListIntoLines(str: string): string {
+  let result = str;
+  const maxLineLength = 70;
+  if (result.length > maxLineLength) {
+    result = toLines(result, 60);
+  }
+  result = result.trimRight() + '\n';
+  return result;
+
+  function toLines(text: string, approximateLineLength: number) {
+    let searchStartIndex = 0;
+    const resultLines = [];
+    while (searchStartIndex + approximateLineLength < text.length) {
+      let nextSpaceIndex = text.indexOf(' ', searchStartIndex + approximateLineLength);
+      const nextLine = text.slice(searchStartIndex, nextSpaceIndex).trimRight();
+      resultLines.push(nextLine);
+      searchStartIndex = nextSpaceIndex + 1;
+    }
+    return resultLines.join('\n');
   }
 }

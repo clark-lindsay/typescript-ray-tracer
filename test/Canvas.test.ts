@@ -1,3 +1,5 @@
+import { readdir, unlink } from 'fs';
+
 import { Canvas } from '../src/Canvas';
 import { Color } from '../src/Color';
 import { range } from '../src/util';
@@ -85,17 +87,31 @@ describe('the Canvas class', () => {
       }
     }
     const ppmImage = canvas.toPPM();
-    const linesFourThroughSeven =
-      '255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153\n';
     const linesOfPPM = ppmImage.split('\n');
 
     for (const line of linesOfPPM) {
       expect(line.length).toBeLessThanOrEqual(70);
     }
-    const linesConcatenated = linesOfPPM
-      .slice(3, 7)
-      .map(line => line + '\n')
-      .reduce((totalGridRepresentation, line) => totalGridRepresentation + line);
-    expect(linesConcatenated).toEqual(linesFourThroughSeven);
+  });
+
+  it('can print a very large grid to PPM format', () => {
+    const canvas = new Canvas(1000, 1000);
+    const testFileName = 'test.ppm';
+    canvas.writePPM(testFileName);
+
+    readdir('./', (error, files) => {
+      if (error) {
+        console.error(error);
+        fail();
+      }
+      expect(files.includes(testFileName)).toBeTruthy();
+    });
+
+    unlink(`./${testFileName}`, error => {
+      if (error) {
+        console.log(error);
+        fail();
+      }
+    });
   });
 });
