@@ -35,6 +35,31 @@ describe('the Matrix class', () => {
   });
 
   it('can determine equality between two matrices, even when floating-point numbers are close', () => {
-    const matrix = new Matrix();
+    const matrix = new Matrix([range(0, 4), range(4, 8), range(8, 12), range(12, 16)]);
+    const identical = new Matrix([range(0, 4), range(4, 8), range(8, 12), range(12, 16)]);
+    const different = new Matrix([
+      range(0, 4).map(num => addTinyIncrement(num)),
+      range(4, 8),
+      range(8, 12).map(num => addTinyIncrement(num)),
+      range(12, 16)
+    ]);
+    const effectivelyIdentical = new Matrix([
+      range(0, 4).map(num => addNegligibleIncrement(num)),
+      range(4, 8),
+      range(8, 12).map(num => addNegligibleIncrement(num)),
+      range(12, 16)
+    ]);
+
+    expect(matrix.isEqualTo(identical)).toBeTruthy();
+    expect(matrix.isEqualTo(different)).toBeFalsy();
+    expect(matrix.isEqualTo(effectivelyIdentical)).toBeTruthy();
+
+    function addTinyIncrement(num: number): number {
+      return num + 0.001;
+    }
+
+    function addNegligibleIncrement(num: number): number {
+      return num + 0.0001;
+    }
   });
 });

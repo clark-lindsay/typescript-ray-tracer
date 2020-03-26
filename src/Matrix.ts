@@ -1,3 +1,4 @@
+import { range } from './util';
 import { equal } from './equal';
 
 export class Matrix {
@@ -26,5 +27,17 @@ export class Matrix {
     return this.height;
   }
 
-  isEqualTo(other: Matrix): boolean {}
+  isEqualTo(other: Matrix): boolean {
+    if (this.getHeight() !== other.getHeight() || this.getWidth() !== other.getWidth()) {
+      return false;
+    }
+    for (const rowIndex of range(0, this.getHeight())) {
+      for (const colIndex of range(0, this.getWidth())) {
+        if (!equal(this.at(rowIndex, colIndex), other.at(rowIndex, colIndex))) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }
