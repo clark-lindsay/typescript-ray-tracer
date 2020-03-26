@@ -71,4 +71,21 @@ describe('the Matrix class', () => {
     expect(matrix.isEqualTo(sameButTwoByTwo)).toBeFalsy();
     expect(matrix.isEqualTo(sameButThreeByThree)).toBeFalsy();
   });
+
+  it('can multiply one Matrix by another of the same dimensions to produce a new Matrix', () => {
+    const matrix = new Matrix([range(1, 5), range(5, 9), range(6, 10).reverse(), range(2, 6).reverse()]);
+    const other = new Matrix([
+      [-2, 1, 2, 3],
+      [3, 2, 1, -1],
+      [4, 3, 6, 5],
+      [1, 2, 7, 8]
+    ]);
+    const result = new Matrix([
+      [20, 22, 50, 48],
+      [44, 54, 114, 108],
+      [40, 58, 110, 102],
+      [16, 26, 46, 42]
+    ]);
+    expect(matrix.cross(other).isEqualTo(result)).toBeTruthy();
+  });
 });

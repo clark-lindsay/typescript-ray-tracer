@@ -40,4 +40,19 @@ export class Matrix {
     }
     return true;
   }
+
+  cross(other: Matrix): Matrix {
+    const result: number[][] = [];
+    for (const row of range(0, this.getHeight())) {
+      result.push([]);
+      for (const column of range(0, other.getWidth())) {
+        let dotProduct = 0;
+        for (const i of range(0, this.getWidth())) {
+          dotProduct += this.at(row, i) * other.at(i, column);
+        }
+        result[result.length - 1].push(dotProduct);
+      }
+    }
+    return new Matrix(result);
+  }
 }
