@@ -62,4 +62,13 @@ describe('the Matrix class', () => {
       return num + 0.0001;
     }
   });
+
+  it('can determine inequality if the matrices are of different dimensions, but containing the same numbers in their shared dimensions', () => {
+    const matrix = new Matrix([range(0, 4), range(4, 8), range(8, 12), range(12, 16)]);
+    const sameButTwoByTwo = new Matrix([range(0, 2), range(4, 6)]);
+    const sameButThreeByThree = new Matrix([range(0, 3), range(4, 7), range(8, 11)]);
+
+    expect(matrix.isEqualTo(sameButTwoByTwo)).toBeFalsy();
+    expect(matrix.isEqualTo(sameButThreeByThree)).toBeFalsy();
+  });
 });
