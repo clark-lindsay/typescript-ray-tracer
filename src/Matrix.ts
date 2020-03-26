@@ -73,4 +73,16 @@ export class Matrix {
     }
     return new Tuple(result[0], result[1], result[2], result[3]);
   }
+
+  transpose(): Matrix {
+    const result: number[][] = [];
+    range(0, this.getHeight()).forEach(_ => result.push([]));
+
+    for (const rowIndex of range(0, this.getHeight())) {
+      for (const colIndex of range(0, this.getWidth())) {
+        result[colIndex][rowIndex] = this.at(rowIndex, colIndex);
+      }
+    }
+    return new Matrix(result);
+  }
 }

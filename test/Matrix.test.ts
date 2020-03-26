@@ -100,7 +100,7 @@ describe('the Matrix class', () => {
     ]);
     const tuple = new Tuple(1, 2, 3, 1);
 
-    expect(matrix.multipliedBy(tuple).isEqualTo(new Tuple(18, 24, 33, 1)));
+    expect(matrix.multipliedBy(tuple).isEqualTo(new Tuple(18, 24, 33, 1))).toBeTruthy();
   });
 
   it('produces the same Matrix when multiplied by the Identity Matrix', () => {
@@ -120,8 +120,33 @@ describe('the Matrix class', () => {
       [0, 0, 0, 1]
     ]);
 
-    expect(twoByTwo.cross(identityMatrix(2)).isEqualTo(twoByTwo));
-    expect(threeByThree.cross(identityMatrix(3)).isEqualTo(threeByThree));
-    expect(fourByFour.cross(identityMatrix(4)).isEqualTo(fourByFour));
+    expect(twoByTwo.cross(identityMatrix(2)).isEqualTo(twoByTwo)).toBeTruthy();
+    expect(threeByThree.cross(identityMatrix(3)).isEqualTo(threeByThree)).toBeTruthy();
+    expect(fourByFour.cross(identityMatrix(4)).isEqualTo(fourByFour)).toBeTruthy();
+  });
+
+  it('can be transposed, returning a new Matrix whose rows and columns are flipped', () => {
+    const matrix = new Matrix([
+      [0, 1, 2, 3],
+      [0, 2, 4, 6],
+      [4, 2, 1, 0],
+      [9, 8, 0, 3]
+    ]);
+    const result = new Matrix([
+      [0, 0, 4, 9],
+      [1, 2, 2, 8],
+      [2, 4, 1, 0],
+      [3, 6, 0, 3]
+    ]);
+
+    expect(matrix.transpose().isEqualTo(result)).toBeTruthy();
+  });
+
+  it('produces the identity matrix if the identity matrix is transposed', () => {
+    expect(
+      identityMatrix(4)
+        .transpose()
+        .isEqualTo(identityMatrix(4))
+    ).toBeTruthy();
   });
 });
