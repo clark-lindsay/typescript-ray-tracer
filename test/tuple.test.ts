@@ -134,14 +134,6 @@ describe('a Tuple', () => {
     expect(equal(aVector.dotProduct(anotherVector), 32)).toBeTruthy();
   });
 
-  it('will throw an error if the "dotProduct" function is called on a point, or given a point as an argument', () => {
-    const aVector = vector(1, 2, 3);
-    const aPoint = point(1, 2, 3);
-
-    expect(() => aPoint.dotProduct(aVector)).toThrow();
-    expect(() => aVector.dotProduct(aPoint)).toThrow();
-  });
-
   it('can calculate the cross product of two vectors', () => {
     const aVector = vector(1, 2, 3);
     const anotherVector = vector(2, 3, 4);

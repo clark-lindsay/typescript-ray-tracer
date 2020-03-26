@@ -1,5 +1,6 @@
 import { range } from './util';
 import { equal } from './equal';
+import { Tuple } from './Tuple';
 
 export class Matrix {
   private height: number;
@@ -54,5 +55,13 @@ export class Matrix {
       }
     }
     return new Matrix(result);
+  }
+
+  multipliedBy(tuple: Tuple): Tuple {
+    const result: number[] = [];
+    for (const row of range(0, this.getHeight())) {
+      result.push(tuple.dotProduct(new Tuple(this.at(row, 0), this.at(row, 1), this.at(row, 2), this.at(row, 3))));
+    }
+    return new Tuple(result[0], result[1], result[2], result[3]);
   }
 }

@@ -1,4 +1,5 @@
 import { Matrix } from '../src/Matrix';
+import { Tuple } from '../src/Tuple';
 import { range } from '../src/util';
 
 describe('the Matrix class', () => {
@@ -86,6 +87,19 @@ describe('the Matrix class', () => {
       [40, 58, 110, 102],
       [16, 26, 46, 42]
     ]);
+
     expect(matrix.cross(other).isEqualTo(result)).toBeTruthy();
+  });
+
+  it('can be multiplied by a Tuple to produce a Tuple', () => {
+    const matrix = new Matrix([
+      [1, 2, 3, 4],
+      [2, 4, 4, 2],
+      [8, 6, 4, 1],
+      [0, 0, 0, 1]
+    ]);
+    const tuple = new Tuple(1, 2, 3, 1);
+
+    expect(matrix.multipliedBy(tuple).isEqualTo(new Tuple(18, 24, 33, 1)));
   });
 });
