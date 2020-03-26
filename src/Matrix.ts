@@ -2,6 +2,15 @@ import { range } from './util';
 import { equal } from './equal';
 import { Tuple } from './Tuple';
 
+export function identityMatrix(size: number): Matrix {
+  const grid: number[][] = [];
+  for (const rowIndex of range(0, size)) {
+    grid.push(Array(size).fill(0));
+    grid[rowIndex][rowIndex] = 1;
+  }
+  return new Matrix(grid);
+}
+
 export class Matrix {
   private height: number;
   private width: number;

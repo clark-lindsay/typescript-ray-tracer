@@ -1,4 +1,4 @@
-import { Matrix } from '../src/Matrix';
+import { Matrix, identityMatrix } from '../src/Matrix';
 import { Tuple } from '../src/Tuple';
 import { range } from '../src/util';
 
@@ -101,5 +101,27 @@ describe('the Matrix class', () => {
     const tuple = new Tuple(1, 2, 3, 1);
 
     expect(matrix.multipliedBy(tuple).isEqualTo(new Tuple(18, 24, 33, 1)));
+  });
+
+  it('produces the same Matrix when multiplied by the Identity Matrix', () => {
+    const twoByTwo = new Matrix([
+      [1, 2],
+      [2, 4]
+    ]);
+    const threeByThree = new Matrix([
+      [1, 2, 3],
+      [2, 4, 6],
+      [3, 6, 9]
+    ]);
+    const fourByFour = new Matrix([
+      [1, 2, 3, 4],
+      [2, 4, 4, 2],
+      [8, 6, 4, 1],
+      [0, 0, 0, 1]
+    ]);
+
+    expect(twoByTwo.cross(identityMatrix(2)).isEqualTo(twoByTwo));
+    expect(threeByThree.cross(identityMatrix(3)).isEqualTo(threeByThree));
+    expect(fourByFour.cross(identityMatrix(4)).isEqualTo(fourByFour));
   });
 });
