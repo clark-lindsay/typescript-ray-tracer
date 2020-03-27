@@ -80,7 +80,15 @@ export class Matrix {
   }
 
   determinant(): number {
-    return this.at(0, 0) * this.at(1, 1) - this.at(0, 1) * this.at(1, 0);
+    if (this.size() === 2) {
+      return this.at(0, 0) * this.at(1, 1) - this.at(0, 1) * this.at(1, 0);
+    } else {
+      const rowIndex = 0;
+      return this.grid[rowIndex].reduce(
+        (accumulator, element, columnIndex) => accumulator + element * this.cofactor(rowIndex, columnIndex),
+        0
+      );
+    }
   }
 
   subMatrix(rowToRemove: number, columnToRemove: number): Matrix {
@@ -99,6 +107,19 @@ export class Matrix {
     interface RowAndColumnIndices {
       rowIndex?: number;
       columnIndex?: number;
+    }
+  }
+
+  minor(row: number, column: number): number {
+    return this.subMatrix(row, column).determinant();
+  }
+
+  cofactor(row: number, column: number): number {
+    if (isEven(row + column)) return this.minor(row, column);
+    return -this.minor(row, column);
+
+    function isEven(num: number): boolean {
+      return num % 2 === 0;
     }
   }
 }

@@ -150,13 +150,26 @@ describe('the Matrix class', () => {
     ).toBeTruthy();
   });
 
-  it('can calculate the determinant of a 2x2 Matrix', () => {
+  it('can calculate the determinant of any square Matrix with dimensions at least 2x2 ', () => {
     const twoByTwo = new Matrix([
       [1, 5],
       [-3, 2]
     ]);
+    const threeByThree = new Matrix([
+      [1, 2, 6],
+      [-5, 8, -4],
+      [2, 6, 4]
+    ]);
+    const fourByFour = new Matrix([
+      [-2, -8, 3, 5],
+      [-3, 1, 7, 3],
+      [1, 2, -9, 6],
+      [-6, 7, 7, -9]
+    ]);
 
     expect(twoByTwo.determinant()).toEqual(17);
+    expect(threeByThree.determinant()).toEqual(-196);
+    expect(fourByFour.determinant()).toEqual(-4071);
   });
 
   it('can produce the submatrix of a Matrix, given a row and column to remove from the original', () => {
@@ -177,5 +190,30 @@ describe('the Matrix class', () => {
 
     expect(fourByFour.subMatrix(0, 1).isEqualTo(withoutFirstRowAndSecondColumn)).toBeTruthy();
     expect(fourByFour.subMatrix(2, 3).isEqualTo(withoutThirdRowAndFourthColumn)).toBeTruthy();
+  });
+
+  it('can calculate the minor of a a 3x3 Matrix, which is the determinant of the submatrix after removing the same row and column', () => {
+    const threeByThree = new Matrix([
+      [3, 5, 0],
+      [2, -1, -7],
+      [6, -1, 5]
+    ]);
+    const subMatrix = threeByThree.subMatrix(1, 0);
+
+    expect(subMatrix.determinant()).toEqual(25);
+    expect(threeByThree.minor(1, 0)).toEqual(25);
+  });
+
+  it('can calculate a cofactor of an address in the Matrix, which is a minor that may or may not have a sign change', () => {
+    const threeByThree = new Matrix([
+      [3, 5, 0],
+      [2, -1, -7],
+      [6, -1, 5]
+    ]);
+
+    expect(threeByThree.cofactor(0, 0)).toEqual(-12);
+    expect(threeByThree.minor(0, 0)).toEqual(-12);
+    expect(threeByThree.cofactor(1, 0)).toEqual(-25);
+    expect(threeByThree.minor(1, 0)).toEqual(25);
   });
 });
