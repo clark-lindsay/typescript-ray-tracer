@@ -31,10 +31,10 @@ export function cannon(projectile: Projectile, environment: Environment): void {
 
   function markLocation(x: number, y: number) {
     const projectileColor = new Color(0.5, 0, 0.5);
-    const canvasCoordinates = (x: number, y: number) => [x, canvas.getHeight() - y - 1];
+    const canvasCoordinates = (x: number, y: number) => [x, canvas.height() - y - 1];
 
     const [shiftedX, shiftedY] = canvasCoordinates(x, y);
-    canvas.setPixel(shiftedX, shiftedY, projectileColor);
+    canvas.setPixelAt(shiftedX, shiftedY, projectileColor);
   }
 
   function floorCoordinates(x: number, y: number): [number, number] {

@@ -4,58 +4,55 @@ import { Color } from './Color';
 import { range } from './util';
 
 export class Canvas {
-  private grid: Color[][];
-  private width: number;
-  private height: number;
+  private pixelGrid: Color[][];
 
   constructor(width: number, height: number) {
-    this.grid = [];
+    this.pixelGrid = [];
     for (const i of range(0, height)) {
-      this.grid.push([]);
+      this.pixelGrid.push([]);
       for (const _ of range(0, width)) {
-        this.grid[i].push(new Color(0, 0, 0));
+        this.pixelGrid[i].push(new Color(0, 0, 0));
       }
     }
-    [this.width, this.height] = [width, height];
   }
 
-  getWidth(): number {
-    return this.width;
+  width(): number {
+    return this.grid()[0].length;
   }
 
-  getHeight(): number {
-    return this.height;
+  height(): number {
+    return this.grid().length;
   }
 
-  getGrid(): Color[][] {
-    return this.grid;
+  grid(): Color[][] {
+    return this.pixelGrid;
   }
 
-  getPixel(x: number, y: number): Color {
+  pixelAt(x: number, y: number): Color {
     this.checkIndexBounds(x, y);
-    return this.grid[y][x];
+    return this.grid()[y][x];
   }
 
-  setPixel(x: number, y: number, color: Color): void {
+  setPixelAt(x: number, y: number, color: Color): void {
     this.checkIndexBounds(x, y);
-    this.grid[y][x] = color;
+    this.pixelGrid[y][x] = color;
   }
 
   writePPM(filePath: string): void {
-    const plainPPMHeader = `P3\n${this.width} ${this.height}\n255\n`;
+    const plainPPMHeader = `P3\n${this.width()} ${this.height()}\n255\n`;
     const writeStream = createWriteStream(filePath, { flags: 'a' });
     writeStream.write(plainPPMHeader);
-    for (const row of this.grid) {
+    for (const row of this.grid()) {
       writeStream.write(rowToPPM(row));
     }
     writeStream.end();
   }
 
   toPPM(): string {
-    const plainPPMHeader = `P3\n${this.width} ${this.height}\n255\n`;
+    const plainPPMHeader = `P3\n${this.width()} ${this.height()}\n255\n`;
     let result = plainPPMHeader;
     const rows = [];
-    for (const row of this.grid) {
+    for (const row of this.grid()) {
       rows.push(rowToPPM(row));
     }
     result += rows.join('');
@@ -63,7 +60,7 @@ export class Canvas {
   }
 
   private checkIndexBounds(x: number, y: number): void {
-    if (x >= this.width || x < 0 || y >= this.height || y < 0) {
+    if (x >= this.width() || x < 0 || y >= this.height() || y < 0) {
       throw new Error('The index for a pixel must be within the bounds of the grid: ( [0, width), [0, height) )');
     }
   }
