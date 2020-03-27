@@ -85,4 +85,27 @@ export class Matrix {
     }
     return new Matrix(result);
   }
+
+  determinant(): number {
+    return this.at(0, 0) * this.at(1, 1) - this.at(0, 1) * this.at(1, 0);
+  }
+
+  subMatrix(rowToRemove: number, columnToRemove: number): Matrix {
+    const result: number[][] = [];
+    for (const row of this.grid.filter((_, rowIndex) => shouldRemain({ rowIndex }))) {
+      result.push(row.filter((_, columnIndex) => shouldRemain({ columnIndex })));
+    }
+    return new Matrix(result);
+
+    function shouldRemain({ rowIndex, columnIndex }: RowAndColumnIndices): boolean {
+      if (rowIndex !== rowToRemove && columnIndex !== columnToRemove) {
+        return true;
+      }
+      return false;
+    }
+    interface RowAndColumnIndices {
+      rowIndex?: number;
+      columnIndex?: number;
+    }
+  }
 }
