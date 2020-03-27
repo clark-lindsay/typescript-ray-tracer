@@ -12,8 +12,6 @@ export function identityMatrix(size: number): Matrix {
 }
 
 export class Matrix {
-  private height: number;
-  private width: number;
   private grid: number[][];
 
   constructor(rows: number[][]) {
@@ -21,7 +19,6 @@ export class Matrix {
       if (row.length !== rows.length) throw new Error('A matrix can only be defined with square NxN dimensions');
     });
 
-    [this.height, this.width] = [rows.length, rows.length];
     this.grid = rows;
   }
 
@@ -29,20 +26,16 @@ export class Matrix {
     return this.grid[row][column];
   }
 
-  getWidth(): number {
-    return this.width;
-  }
-
-  getHeight(): number {
-    return this.height;
+  size(): number {
+    return this.grid.length;
   }
 
   isEqualTo(other: Matrix): boolean {
-    if (this.getHeight() !== other.getHeight() || this.getWidth() !== other.getWidth()) {
+    if (this.size() !== other.size() || this.size() !== other.size()) {
       return false;
     }
-    for (const rowIndex of range(0, this.getHeight())) {
-      for (const colIndex of range(0, this.getWidth())) {
+    for (const rowIndex of range(0, this.size())) {
+      for (const colIndex of range(0, this.size())) {
         if (!equal(this.at(rowIndex, colIndex), other.at(rowIndex, colIndex))) {
           return false;
         }
@@ -53,11 +46,11 @@ export class Matrix {
 
   cross(other: Matrix): Matrix {
     const result: number[][] = [];
-    for (const row of range(0, this.getHeight())) {
+    for (const row of range(0, this.size())) {
       result.push([]);
-      for (const column of range(0, other.getWidth())) {
+      for (const column of range(0, other.size())) {
         let dotProduct = 0;
-        for (const i of range(0, this.getWidth())) {
+        for (const i of range(0, this.size())) {
           dotProduct += this.at(row, i) * other.at(i, column);
         }
         result[result.length - 1].push(dotProduct);
@@ -68,7 +61,7 @@ export class Matrix {
 
   multipliedBy(tuple: Tuple): Tuple {
     const result: number[] = [];
-    for (const row of range(0, this.getHeight())) {
+    for (const row of range(0, this.size())) {
       result.push(tuple.dotProduct(new Tuple(this.at(row, 0), this.at(row, 1), this.at(row, 2), this.at(row, 3))));
     }
     return new Tuple(result[0], result[1], result[2], result[3]);
@@ -76,10 +69,10 @@ export class Matrix {
 
   transpose(): Matrix {
     const result: number[][] = [];
-    range(0, this.getHeight()).forEach(_ => result.push([]));
+    range(0, this.size()).forEach(_ => result.push([]));
 
-    for (const rowIndex of range(0, this.getHeight())) {
-      for (const colIndex of range(0, this.getWidth())) {
+    for (const rowIndex of range(0, this.size())) {
+      for (const colIndex of range(0, this.size())) {
         result[colIndex][rowIndex] = this.at(rowIndex, colIndex);
       }
     }

@@ -6,8 +6,8 @@ describe('the Matrix class', () => {
   it('can be instantiated as a 4x4 grid, with access to individual elements zero-indexed with row first', () => {
     const matrix = new Matrix([range(0, 4), range(4, 8), range(8, 12), range(12, 16)]);
 
-    expect(matrix.getHeight()).toEqual(4);
-    expect(matrix.getWidth()).toEqual(4);
+    expect(matrix.size()).toEqual(4);
+    expect(matrix.size()).toEqual(4);
 
     expect(matrix.at(0, 0)).toEqual(0);
     expect(matrix.at(1, 2)).toEqual(6);
@@ -19,10 +19,10 @@ describe('the Matrix class', () => {
     const twoByTwo = new Matrix([range(0, 2), range(2, 4)]);
     const threeByThree = new Matrix([range(0, 3), range(3, 6), range(6, 9)]);
 
-    expect(twoByTwo.getHeight()).toEqual(2);
-    expect(twoByTwo.getWidth()).toEqual(2);
-    expect(threeByThree.getHeight()).toEqual(3);
-    expect(threeByThree.getWidth()).toEqual(3);
+    expect(twoByTwo.size()).toEqual(2);
+    expect(twoByTwo.size()).toEqual(2);
+    expect(threeByThree.size()).toEqual(3);
+    expect(threeByThree.size()).toEqual(3);
 
     expect(twoByTwo.at(0, 0)).toEqual(0);
     expect(twoByTwo.at(0, 1)).toEqual(1);
