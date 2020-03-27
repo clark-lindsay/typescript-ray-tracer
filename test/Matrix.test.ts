@@ -161,10 +161,10 @@ describe('the Matrix class', () => {
 
   it('can produce the submatrix of a Matrix, given a row and column to remove from the original', () => {
     const threeByThree = new Matrix([range(0, 3), range(3, 6), range(6, 9)]);
-    const withoutFirstRowAndColumn = new Matrix([range(4, 6), range(7, 9)]);
+    const withoutFirstRowAndFirstColumn = new Matrix([range(4, 6), range(7, 9)]);
     const withoutSecondRowAndThirdColumn = new Matrix([range(0, 2), range(6, 8)]);
 
-    expect(threeByThree.subMatrix(0, 0).isEqualTo(withoutFirstRowAndColumn)).toBeTruthy();
+    expect(threeByThree.subMatrix(0, 0).isEqualTo(withoutFirstRowAndFirstColumn)).toBeTruthy();
     expect(threeByThree.subMatrix(1, 2).isEqualTo(withoutSecondRowAndThirdColumn)).toBeTruthy();
 
     const fourByFour = new Matrix([range(0, 4), range(4, 8), range(8, 12), range(12, 16)]);
