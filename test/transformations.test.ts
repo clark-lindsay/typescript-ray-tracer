@@ -1,17 +1,17 @@
-import { translationTransformation as translationTransform, scalingTransformation } from '../src/transformations';
+import { translationTransformation, scalingTransformation, rotateX } from '../src/transformations';
 import { point, vector } from '../src/Tuple';
 
 describe('the Matrix transformation functions', () => {
   describe('the translation function', () => {
     it('returns a 4x4 Matrix that can move a point in space by multiplication', () => {
-      const translation = translationTransform(5, -3, 2);
+      const translation = translationTransformation(5, -3, 2);
       const p = point(-3, 4, 5);
 
       expect(translation.multipliedBy(p).isEqualTo(point(2, 1, 7))).toBeTruthy();
     });
 
     it('its inverse creates the exactly opposite translation', () => {
-      const translation = translationTransform(5, -3, 2);
+      const translation = translationTransformation(5, -3, 2);
       const translationInverse = translation.inverse();
       const p = point(-3, 4, 5);
 
@@ -19,7 +19,7 @@ describe('the Matrix transformation functions', () => {
     });
 
     it('will not have any effect when multiplied with a vector', () => {
-      const translation = translationTransform(5, -3, 2);
+      const translation = translationTransformation(5, -3, 2);
       const v = vector(-3, 4, 5);
 
       expect(translation.multipliedBy(v).isEqualTo(v)).toBeTruthy();
@@ -54,6 +54,19 @@ describe('the Matrix transformation functions', () => {
       const p = point(-2, 3, 4);
 
       expect(transform.multipliedBy(p).isEqualTo(point(2, 3, 4))).toBeTruthy();
+    });
+  });
+
+  describe('the rotation transformations', () => {
+    it('can rotate a point around the x axis', () => {
+      const p = point(0, 1, 0);
+      const oneEighthTurn = rotateX(Math.PI / 4);
+      const oneQuarterTurn = rotateX(Math.PI / 2);
+      const reverseQuarterTurn = oneQuarterTurn.inverse();
+
+      expect(oneEighthTurn.multipliedBy(p).isEqualTo(point(0, Math.SQRT2 / 2, Math.SQRT2 / 2))).toBeTruthy();
+      expect(oneQuarterTurn.multipliedBy(p).isEqualTo(point(0, 0, 1))).toBeTruthy();
+      expect(reverseQuarterTurn.multipliedBy(p).isEqualTo(point(0, 0, -1))).toBeTruthy();
     });
   });
 });
