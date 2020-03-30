@@ -1,4 +1,4 @@
-import { translationTransformation, scalingTransformation, rotateX } from '../src/transformations';
+import { translationTransformation, scalingTransformation, rotateX, rotateY } from '../src/transformations';
 import { point, vector } from '../src/Tuple';
 
 describe('the Matrix transformation functions', () => {
@@ -67,6 +67,17 @@ describe('the Matrix transformation functions', () => {
       expect(oneEighthTurn.multipliedBy(p).isEqualTo(point(0, Math.SQRT2 / 2, Math.SQRT2 / 2))).toBeTruthy();
       expect(oneQuarterTurn.multipliedBy(p).isEqualTo(point(0, 0, 1))).toBeTruthy();
       expect(reverseQuarterTurn.multipliedBy(p).isEqualTo(point(0, 0, -1))).toBeTruthy();
+    });
+
+    it('can rotate a point around the y axis', () => {
+      const p = point(0, 0, 1);
+      const oneEighthTurn = rotateY(Math.PI / 4);
+      const oneQuarterTurn = rotateY(Math.PI / 2);
+      const reverseQuarterTurn = oneQuarterTurn.inverse();
+
+      expect(oneEighthTurn.multipliedBy(p).isEqualTo(point(Math.SQRT2 / 2, 0, Math.SQRT2 / 2))).toBeTruthy();
+      expect(oneQuarterTurn.multipliedBy(p).isEqualTo(point(1, 0, 0))).toBeTruthy();
+      expect(reverseQuarterTurn.multipliedBy(p).isEqualTo(point(-1, 0, 0))).toBeTruthy();
     });
   });
 });
