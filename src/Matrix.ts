@@ -2,19 +2,6 @@ import { range } from './util';
 import { equal } from './equal';
 import { Tuple } from './Tuple';
 
-export function identityMatrix(size: number): Matrix {
-  return new Matrix(identityGrid(size));
-}
-
-export function identityGrid(size: number): number[][] {
-  const grid: number[][] = [];
-  for (const rowIndex of range(0, size)) {
-    grid.push(Array(size).fill(0));
-    grid[rowIndex][rowIndex] = 1;
-  }
-  return grid;
-}
-
 export class Matrix {
   private grid: number[][];
 
@@ -142,5 +129,41 @@ export class Matrix {
       });
     }
     return new Matrix(inverseGrid);
+  }
+}
+
+export function identityMatrix(size: number): Matrix {
+  return new Matrix(identityGrid(size));
+}
+
+export function identityGrid(size: number): number[][] {
+  const oneByOneIdentity = [[1]];
+  const twoByTwoIdentity = [
+    [1, 0],
+    [0, 1]
+  ];
+  const threeByThreeIdentity = [
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1]
+  ];
+  const fourByFourIdentity = [
+    [1, 0, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 1]
+  ];
+  const identities: IdentityMap = {
+    1: oneByOneIdentity,
+    2: twoByTwoIdentity,
+    3: threeByThreeIdentity,
+    4: fourByFourIdentity
+  };
+  if (!identities[size]) {
+    throw new Error('There is no identity Matrix defined for this size');
+  }
+  return identities[size];
+  interface IdentityMap {
+    [key: number]: number[][];
   }
 }
