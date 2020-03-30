@@ -16,7 +16,7 @@ export function scalingTransformation(x: number, y: number, z: number): Matrix {
   return new Matrix(result);
 }
 
-export function rotateX(degreesInRadians: number): Matrix {
+export function xRotationTransformation(degreesInRadians: number): Matrix {
   const result = identityGrid(4);
   result[1][1] = Math.cos(degreesInRadians);
   result[1][2] = -Math.sin(degreesInRadians);
@@ -25,7 +25,7 @@ export function rotateX(degreesInRadians: number): Matrix {
   return new Matrix(result);
 }
 
-export function rotateY(degreesInRadians: number): Matrix {
+export function yRotationTransformation(degreesInRadians: number): Matrix {
   const result = identityGrid(4);
   result[0][0] = Math.cos(degreesInRadians);
   result[0][2] = Math.sin(degreesInRadians);
@@ -34,7 +34,7 @@ export function rotateY(degreesInRadians: number): Matrix {
   return new Matrix(result);
 }
 
-export function rotateZ(degreesInRadians: number): Matrix {
+export function zRotationTransformation(degreesInRadians: number): Matrix {
   const result = identityGrid(4);
   result[0][0] = Math.cos(degreesInRadians);
   result[0][1] = -Math.sin(degreesInRadians);

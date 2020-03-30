@@ -1,4 +1,10 @@
-import { translationTransformation, scalingTransformation, rotateX, rotateY, rotateZ } from '../src/transformations';
+import {
+  translationTransformation,
+  scalingTransformation,
+  xRotationTransformation,
+  yRotationTransformation,
+  zRotationTransformation
+} from '../src/transformations';
 import { point, vector } from '../src/Tuple';
 
 describe('the Matrix transformation functions', () => {
@@ -60,8 +66,8 @@ describe('the Matrix transformation functions', () => {
   describe('the rotation transformations', () => {
     it('can rotate a point around the x axis', () => {
       const p = point(0, 1, 0);
-      const oneEighthTurn = rotateX(Math.PI / 4);
-      const oneQuarterTurn = rotateX(Math.PI / 2);
+      const oneEighthTurn = xRotationTransformation(Math.PI / 4);
+      const oneQuarterTurn = xRotationTransformation(Math.PI / 2);
       const reverseQuarterTurn = oneQuarterTurn.inverse();
 
       expect(oneEighthTurn.multipliedBy(p).isEqualTo(point(0, Math.SQRT2 / 2, Math.SQRT2 / 2))).toBeTruthy();
@@ -71,8 +77,8 @@ describe('the Matrix transformation functions', () => {
 
     it('can rotate a point around the y axis', () => {
       const p = point(0, 0, 1);
-      const oneEighthTurn = rotateY(Math.PI / 4);
-      const oneQuarterTurn = rotateY(Math.PI / 2);
+      const oneEighthTurn = yRotationTransformation(Math.PI / 4);
+      const oneQuarterTurn = yRotationTransformation(Math.PI / 2);
       const reverseQuarterTurn = oneQuarterTurn.inverse();
 
       expect(oneEighthTurn.multipliedBy(p).isEqualTo(point(Math.SQRT2 / 2, 0, Math.SQRT2 / 2))).toBeTruthy();
@@ -82,8 +88,8 @@ describe('the Matrix transformation functions', () => {
 
     it('can rotate a point around the z axis', () => {
       const p = point(0, 1, 0);
-      const oneEighthTurn = rotateZ(Math.PI / 4);
-      const oneQuarterTurn = rotateZ(Math.PI / 2);
+      const oneEighthTurn = zRotationTransformation(Math.PI / 4);
+      const oneQuarterTurn = zRotationTransformation(Math.PI / 2);
       const reverseQuarterTurn = oneQuarterTurn.inverse();
 
       expect(oneEighthTurn.multipliedBy(p).isEqualTo(point(-Math.SQRT2 / 2, Math.SQRT2 / 2, 0))).toBeTruthy();
