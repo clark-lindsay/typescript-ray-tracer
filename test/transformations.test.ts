@@ -1,4 +1,4 @@
-import { translation as translationTransform, scalingTransformation } from '../src/transformations';
+import { translationTransformation as translationTransform, scalingTransformation } from '../src/transformations';
 import { point, vector } from '../src/Tuple';
 
 describe('the Matrix transformation functions', () => {
