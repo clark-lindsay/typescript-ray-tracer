@@ -1,4 +1,4 @@
 export function equal(a: number, b: number): boolean {
-  const twoToTheNegativeTen = 0.0009765625;
-  return Math.abs(a - b) < twoToTheNegativeTen;
+  const epsilon = Math.pow(2, -12);
+  return Math.abs(a - b) < epsilon;
 }

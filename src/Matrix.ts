@@ -122,4 +122,21 @@ export class Matrix {
       return num % 2 === 0;
     }
   }
+
+  inverse(): Matrix {
+    const determinant = this.determinant();
+    if (equal(determinant, 0)) {
+      throw new Error('A matrix with a determinant of 0 is not invertible.');
+    }
+    const inverseGrid: number[][] = [];
+    for (const _ of range(0, this.size())) {
+      inverseGrid.push(Array(this.size()));
+    }
+    for (const [rowIndex, row] of this.grid.entries()) {
+      row.forEach((_, columnIndex) => {
+        return (inverseGrid[columnIndex][rowIndex] = this.cofactor(rowIndex, columnIndex) / determinant);
+      });
+    }
+    return new Matrix(inverseGrid);
+  }
 }
