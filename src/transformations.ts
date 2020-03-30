@@ -33,3 +33,12 @@ export function rotateY(degreesInRadians: number): Matrix {
   result[2][2] = Math.cos(degreesInRadians);
   return new Matrix(result);
 }
+
+export function rotateZ(degreesInRadians: number): Matrix {
+  const result = identityGrid(4);
+  result[0][0] = Math.cos(degreesInRadians);
+  result[0][1] = -Math.sin(degreesInRadians);
+  result[1][0] = Math.sin(degreesInRadians);
+  result[1][1] = Math.cos(degreesInRadians);
+  return new Matrix(result);
+}
