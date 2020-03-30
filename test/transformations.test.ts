@@ -48,5 +48,12 @@ describe('the Matrix transformation functions', () => {
 
       expect(scalingInverse.multipliedBy(v).isEqualTo(vector(-2, 5 / 3, 2))).toBeTruthy();
     });
+
+    it('can reflect a point across an axis by scaling that axis by -1, and scaling the other axes by 1', () => {
+      const transform = scalingTransformation(-1, 1, 1);
+      const p = point(-2, 3, 4);
+
+      expect(transform.multipliedBy(p).isEqualTo(point(2, 3, 4))).toBeTruthy();
+    });
   });
 });
