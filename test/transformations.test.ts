@@ -3,7 +3,8 @@ import {
   scalingTransformation,
   xRotationTransformation,
   yRotationTransformation,
-  zRotationTransformation
+  zRotationTransformation,
+  shearTransformation
 } from '../src/transformations';
 import { point, vector } from '../src/Tuple';
 
@@ -95,6 +96,35 @@ describe('the Matrix transformation functions', () => {
       expect(oneEighthTurn.multipliedBy(p).isEqualTo(point(-Math.SQRT2 / 2, Math.SQRT2 / 2, 0))).toBeTruthy();
       expect(oneQuarterTurn.multipliedBy(p).isEqualTo(point(-1, 0, 0))).toBeTruthy();
       expect(reverseQuarterTurn.multipliedBy(p).isEqualTo(point(1, 0, 0))).toBeTruthy();
+    });
+  });
+
+  describe('the shearing (skew) transformation', () => {
+    it('can move x in proportion to y or z', () => {
+      const p = point(2, 3, 4);
+      const shearXInProportionToY = shearTransformation(1, 0, 0, 0, 0, 0);
+      const shearXInProportionToZ = shearTransformation(0, 1, 0, 0, 0, 0);
+
+      expect(shearXInProportionToY.multipliedBy(p).isEqualTo(point(5, 3, 4)));
+      expect(shearXInProportionToZ.multipliedBy(p).isEqualTo(point(6, 3, 4)));
+    });
+
+    it('can move y in proportion to x or z', () => {
+      const p = point(2, 3, 4);
+      const shearYInProportionToX = shearTransformation(0, 0, 1, 0, 0, 0);
+      const shearYInProportionToZ = shearTransformation(0, 0, 0, 1, 0, 0);
+
+      expect(shearYInProportionToX.multipliedBy(p).isEqualTo(point(2, 5, 4)));
+      expect(shearYInProportionToZ.multipliedBy(p).isEqualTo(point(2, 7, 4)));
+    });
+
+    it('can move z in proportion to x or y', () => {
+      const p = point(2, 3, 4);
+      const shearZInProportionToX = shearTransformation(0, 0, 0, 0, 1, 0);
+      const shearZInProportionToY = shearTransformation(0, 0, 0, 0, 0, 1);
+
+      expect(shearZInProportionToX.multipliedBy(p).isEqualTo(point(2, 3, 6)));
+      expect(shearZInProportionToY.multipliedBy(p).isEqualTo(point(2, 3, 7)));
     });
   });
 });

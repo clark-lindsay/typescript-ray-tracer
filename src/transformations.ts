@@ -42,3 +42,21 @@ export function zRotationTransformation(degreesInRadians: number): Matrix {
   result[1][1] = Math.cos(degreesInRadians);
   return new Matrix(result);
 }
+
+export function shearTransformation(
+  xInProportionToY: number,
+  xInProportionToZ: number,
+  yInProportionToX: number,
+  yInProportionToZ: number,
+  zInProportionToX: number,
+  zInProportionToY: number
+): Matrix {
+  const result = identityGrid(4);
+  result[0][1] = xInProportionToY;
+  result[0][2] = xInProportionToZ;
+  result[1][0] = yInProportionToX;
+  result[1][2] = yInProportionToZ;
+  result[2][0] = zInProportionToX;
+  result[2][1] = zInProportionToY;
+  return new Matrix(result);
+}
