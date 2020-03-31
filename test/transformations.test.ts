@@ -105,8 +105,8 @@ describe('the Matrix transformation functions', () => {
       const shearXInProportionToY = shearTransformation(1, 0, 0, 0, 0, 0);
       const shearXInProportionToZ = shearTransformation(0, 1, 0, 0, 0, 0);
 
-      expect(shearXInProportionToY.multipliedBy(p).isEqualTo(point(5, 3, 4)));
-      expect(shearXInProportionToZ.multipliedBy(p).isEqualTo(point(6, 3, 4)));
+      expect(shearXInProportionToY.multipliedBy(p).isEqualTo(point(5, 3, 4))).toBeTruthy();
+      expect(shearXInProportionToZ.multipliedBy(p).isEqualTo(point(6, 3, 4))).toBeTruthy();
     });
 
     it('can move y in proportion to x or z', () => {
@@ -114,8 +114,8 @@ describe('the Matrix transformation functions', () => {
       const shearYInProportionToX = shearTransformation(0, 0, 1, 0, 0, 0);
       const shearYInProportionToZ = shearTransformation(0, 0, 0, 1, 0, 0);
 
-      expect(shearYInProportionToX.multipliedBy(p).isEqualTo(point(2, 5, 4)));
-      expect(shearYInProportionToZ.multipliedBy(p).isEqualTo(point(2, 7, 4)));
+      expect(shearYInProportionToX.multipliedBy(p).isEqualTo(point(2, 5, 4))).toBeTruthy();
+      expect(shearYInProportionToZ.multipliedBy(p).isEqualTo(point(2, 7, 4))).toBeTruthy();
     });
 
     it('can move z in proportion to x or y', () => {
@@ -123,8 +123,44 @@ describe('the Matrix transformation functions', () => {
       const shearZInProportionToX = shearTransformation(0, 0, 0, 0, 1, 0);
       const shearZInProportionToY = shearTransformation(0, 0, 0, 0, 0, 1);
 
-      expect(shearZInProportionToX.multipliedBy(p).isEqualTo(point(2, 3, 6)));
-      expect(shearZInProportionToY.multipliedBy(p).isEqualTo(point(2, 3, 7)));
+      expect(shearZInProportionToX.multipliedBy(p).isEqualTo(point(2, 3, 6))).toBeTruthy();
+      expect(shearZInProportionToY.multipliedBy(p).isEqualTo(point(2, 3, 7))).toBeTruthy();
+    });
+  });
+
+  describe('the order of operations for transformations', () => {
+    it('means that individual operations are applied in sequence', () => {
+      const p = point(1, 0, 1);
+      const rotateX = xRotationTransformation(Math.PI / 2);
+      const scaleUp = scalingTransformation(5, 5, 5);
+      const translation = translationTransformation(10, 5, 7);
+
+      const p2 = rotateX.multipliedBy(p);
+      expect(p2.isEqualTo(point(1, -1, 0))).toBeTruthy();
+      const p3 = scaleUp.multipliedBy(p2);
+      expect(p3.isEqualTo(point(5, -5, 0))).toBeTruthy();
+      const p4 = translation.multipliedBy(p3);
+      expect(p4.isEqualTo(point(15, 0, 7))).toBeTruthy();
+    });
+
+    it('means that chained transformations must be applied in reverse order', () => {
+      const p = point(1, 0, 1);
+      const rotateX = xRotationTransformation(Math.PI / 2);
+      const scaleUp = scalingTransformation(5, 5, 5);
+      const translation = translationTransformation(10, 5, 7);
+
+      expect(
+        translation
+          .cross(scaleUp.cross(rotateX))
+          .multipliedBy(p)
+          .isEqualTo(point(15, 0, 7))
+      ).toBeTruthy();
+      expect(
+        rotateX
+          .cross(scaleUp.cross(translation))
+          .multipliedBy(p)
+          .isEqualTo(point(15, 0, 7))
+      ).toBeFalsy();
     });
   });
 });
