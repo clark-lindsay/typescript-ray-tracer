@@ -5,7 +5,8 @@ import {
   xRotationTransformation,
   yRotationTransformation,
   zRotationTransformation,
-  translationTransformation
+  translationTransformation,
+  scalingTransformation
 } from './transformations';
 
 export class Matrix {
@@ -149,6 +150,10 @@ export class Matrix {
 
   translate(x: number, y: number, z: number): Matrix {
     return translationTransformation(x, y, z).cross(this);
+  }
+
+  scale(x: number, y: number, z: number): Matrix {
+    return scalingTransformation(x, y, z).cross(this);
   }
 }
 

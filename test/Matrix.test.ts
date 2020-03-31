@@ -350,4 +350,19 @@ describe('the Matrix class', () => {
       )
     );
   });
+
+  it('can be scaled arbitrarily', () => {
+    const identity = identityMatrix(4);
+
+    expect(
+      identity.scale(3, 7, 6).isEqualTo(
+        new Matrix([
+          [3, 0, 0, 0],
+          [0, 7, 0, 0],
+          [0, 0, 6, 0],
+          [0, 0, 0, 1]
+        ])
+      )
+    );
+  });
 });
