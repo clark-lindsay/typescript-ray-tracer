@@ -6,7 +6,8 @@ import {
   yRotationTransformation,
   zRotationTransformation,
   translationTransformation,
-  scalingTransformation
+  scalingTransformation,
+  shearTransformation
 } from './transformations';
 
 export class Matrix {
@@ -154,6 +155,24 @@ export class Matrix {
 
   scale(x: number, y: number, z: number): Matrix {
     return scalingTransformation(x, y, z).cross(this);
+  }
+
+  shear(
+    xInProportionToY: number,
+    xInProportionToZ: number,
+    yInProportionToX: number,
+    yInProportionToZ: number,
+    zInProportionToX: number,
+    zInProportionToY: number
+  ): Matrix {
+    return shearTransformation(
+      xInProportionToY,
+      xInProportionToZ,
+      yInProportionToX,
+      yInProportionToZ,
+      zInProportionToX,
+      zInProportionToY
+    ).cross(this);
   }
 }
 

@@ -1,5 +1,5 @@
 import { Matrix, identityMatrix, Axes } from '../src/Matrix';
-import { Tuple } from '../src/Tuple';
+import { Tuple, point } from '../src/Tuple';
 import { range } from '../src/util';
 
 describe('the Matrix class', () => {
@@ -342,13 +342,13 @@ describe('the Matrix class', () => {
     expect(
       identity.translate(5, 7, 4).isEqualTo(
         new Matrix([
-          [6, 7, 4, 0],
-          [5, 8, 4, 0],
-          [5, 7, 5, 0],
-          [5, 7, 4, 1]
+          [1, 0, 0, 5],
+          [0, 1, 0, 7],
+          [0, 0, 1, 4],
+          [0, 0, 0, 1]
         ])
       )
-    );
+    ).toBeTruthy();
   });
 
   it('can be scaled arbitrarily', () => {
@@ -363,6 +363,31 @@ describe('the Matrix class', () => {
           [0, 0, 0, 1]
         ])
       )
-    );
+    ).toBeTruthy();
+  });
+
+  it('can be sheared arbitrarily', () => {
+    const identity = identityMatrix(4);
+
+    expect(
+      identity.shear(1, 2, 3, 4, 5, 6).isEqualTo(
+        new Matrix([
+          [1, 1, 2, 0],
+          [3, 1, 4, 0],
+          [5, 6, 1, 0],
+          [0, 0, 0, 1]
+        ])
+      )
+    ).toBeTruthy();
+  });
+
+  it('can chain translations together as if they happen sequentially', () => {
+    const p = point(1, 0, 1);
+    const transform = identityMatrix(4)
+      .rotate(Axes.X, Math.PI / 2)
+      .scale(5, 5, 5)
+      .translate(10, 5, 7);
+
+    expect(transform.multipliedBy(p).isEqualTo(point(15, 0, 7))).toBeTruthy();
   });
 });
