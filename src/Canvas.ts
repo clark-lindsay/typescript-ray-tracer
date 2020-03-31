@@ -1,4 +1,4 @@
-import { createWriteStream } from 'fs';
+import { createWriteStream, existsSync } from 'fs';
 
 import { Color } from './Color';
 import { range } from './util';
@@ -38,9 +38,15 @@ export class Canvas {
     this.pixelGrid[y][x] = color;
   }
 
-  writePPM(filePath: string): void {
+  writePPM(filePathWithoutExtension: string): void {
+    let fileName = filePathWithoutExtension;
+    let count = 1;
+    while (existsSync(fileName)) {
+      fileName = filePathWithoutExtension + count;
+      count += 1;
+    }
     const plainPPMHeader = `P3\n${this.width()} ${this.height()}\n255\n`;
-    const writeStream = createWriteStream(filePath, { flags: 'a' });
+    const writeStream = createWriteStream(fileName + '.ppm', { flags: 'a' });
     writeStream.write(plainPPMHeader);
     for (const row of this.grid()) {
       writeStream.write(rowToPPM(row));

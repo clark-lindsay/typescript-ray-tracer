@@ -79,7 +79,7 @@ describe('the Canvas class', () => {
 
   it('can print a very large grid to PPM format', async () => {
     const canvas = new Canvas(1000, 1000);
-    const testFileName = 'test.ppm';
+    const testFileName = 'canvasTestImage';
     canvas.writePPM(testFileName);
 
     await readdir('./', (error, files) => {
@@ -87,10 +87,10 @@ describe('the Canvas class', () => {
         console.error(error);
         fail();
       }
-      expect(files.includes(testFileName)).toBeTruthy();
+      expect(files.includes(testFileName + '.ppm')).toBeTruthy();
     });
 
-    await unlink(`./${testFileName}`, error => {
+    await unlink(`./${testFileName + '.ppm'}`, error => {
       if (error) {
         console.log(error);
         fail();

@@ -11,12 +11,12 @@
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "ts-jest": "^25.2.1",
+    "ts-node": "^8.8.1",
     "tslint": "^6.1.0"
   },
   "dependencies": {
     "@babel/preset-typescript": "^7.8.3",
     "@types/node": "^13.9.1",
-    "ts-node": "^8.8.1",
     "typescript": "^3.8.3"
   }
 }
