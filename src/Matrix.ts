@@ -1,7 +1,12 @@
 import { range } from './util';
 import { equal } from './equal';
 import { Tuple } from './Tuple';
-import { xRotationTransformation, yRotationTransformation, zRotationTransformation } from './transformations';
+import {
+  xRotationTransformation,
+  yRotationTransformation,
+  zRotationTransformation,
+  translationTransformation
+} from './transformations';
 
 export class Matrix {
   private grid: number[][];
@@ -140,6 +145,10 @@ export class Matrix {
     } else if (axis === Axes.Z) {
       return zRotationTransformation(degreesInRadians).cross(this);
     } else throw new Error('Unrecognized rotation matrix');
+  }
+
+  translate(x: number, y: number, z: number): Matrix {
+    return translationTransformation(x, y, z).cross(this);
   }
 }
 

@@ -335,4 +335,19 @@ describe('the Matrix class', () => {
         .isEqualTo(identityRotated90AboutZ)
     ).toBeTruthy();
   });
+
+  it('can be translated arbitrarily', () => {
+    const identity = identityMatrix(4);
+
+    expect(
+      identity.translate(5, 7, 4).isEqualTo(
+        new Matrix([
+          [6, 7, 4, 0],
+          [5, 8, 4, 0],
+          [5, 7, 5, 0],
+          [5, 7, 4, 1]
+        ])
+      )
+    );
+  });
 });
