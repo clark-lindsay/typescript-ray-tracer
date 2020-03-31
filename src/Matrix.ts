@@ -1,6 +1,7 @@
 import { range } from './util';
 import { equal } from './equal';
 import { Tuple } from './Tuple';
+import { xRotationTransformation, yRotationTransformation, zRotationTransformation } from './transformations';
 
 export class Matrix {
   private grid: number[][];
@@ -130,6 +131,16 @@ export class Matrix {
     }
     return new Matrix(inverseGrid);
   }
+
+  rotate(axis: Axes, degreesInRadians: number): Matrix {
+    if (axis === Axes.X) {
+      return xRotationTransformation(degreesInRadians).cross(this);
+    } else if (axis === Axes.Y) {
+      return yRotationTransformation(degreesInRadians).cross(this);
+    } else if (axis === Axes.Z) {
+      return zRotationTransformation(degreesInRadians).cross(this);
+    } else throw new Error('Unrecognized rotation matrix');
+  }
 }
 
 export function identityMatrix(size: number): Matrix {
@@ -166,4 +177,10 @@ export function identityGrid(size: number): number[][] {
   interface IdentityMap {
     [key: number]: number[][];
   }
+}
+
+export enum Axes {
+  X,
+  Y,
+  Z
 }

@@ -1,4 +1,4 @@
-import { Matrix, identityMatrix } from '../src/Matrix';
+import { Matrix, identityMatrix, Axes } from '../src/Matrix';
 import { Tuple } from '../src/Tuple';
 import { range } from '../src/util';
 
@@ -296,6 +296,43 @@ describe('the Matrix class', () => {
       A.cross(B)
         .cross(B.inverse())
         .isEqualTo(A)
+    ).toBeTruthy();
+  });
+
+  it('can produce rotations around any axis', () => {
+    const identityRotated90AboutX = new Matrix([
+      [1, 0, 0, 0],
+      [0, 0, -1, 0],
+      [0, 1, 0, 0],
+      [0, 0, 0, 1]
+    ]);
+    const identityRotated90AboutY = new Matrix([
+      [0, 0, 1, 0],
+      [0, 1, 0, 0],
+      [-1, 0, 0, 0],
+      [0, 0, 0, 1]
+    ]);
+    const identityRotated90AboutZ = new Matrix([
+      [0, -1, 0, 0],
+      [1, 0, 0, 0],
+      [0, 0, 1, 0],
+      [0, 0, 0, 1]
+    ]);
+
+    expect(
+      identityMatrix(4)
+        .rotate(Axes.X, Math.PI / 2)
+        .isEqualTo(identityRotated90AboutX)
+    ).toBeTruthy();
+    expect(
+      identityMatrix(4)
+        .rotate(Axes.Y, Math.PI / 2)
+        .isEqualTo(identityRotated90AboutY)
+    ).toBeTruthy();
+    expect(
+      identityMatrix(4)
+        .rotate(Axes.Z, Math.PI / 2)
+        .isEqualTo(identityRotated90AboutZ)
     ).toBeTruthy();
   });
 });
