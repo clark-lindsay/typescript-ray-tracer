@@ -7,4 +7,8 @@ export class Ray {
   constructor(origin: Tuple, direction: Tuple) {
     [this.origin, this.direction] = [origin, direction];
   }
+
+  position(t: number): Tuple {
+    return this.origin.add(this.direction.scalarMultiply(t));
+  }
 }
