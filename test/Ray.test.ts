@@ -81,5 +81,6 @@ describe('the Ray class', () => {
     const intersections = ray.intersects(sphere);
 
     expect(intersections[0].object).toBe(sphere);
+    expect(intersections[1].object).toBe(sphere);
   });
 });
