@@ -1,6 +1,12 @@
 import { Intersection } from './interfaces';
+import { IntersectionCollection } from './IntersectionCollection';
 
-export function hit(intersections: Intersection[]): Intersection | null {
+export function hit(intersectionCollection: IntersectionCollection): Intersection | null {
+  const intersections = intersectionCollection.intersections;
   if (intersections.length === 0) return null;
-  return intersections[0];
+
+  const indexOfLowestNonNegative = intersections.findIndex(intersection => intersection.t >= 0);
+  if (indexOfLowestNonNegative !== -1) {
+    return intersections[intersections.findIndex(intersection => intersection.t >= 0)];
+  } else return null;
 }
