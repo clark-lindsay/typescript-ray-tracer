@@ -2,7 +2,7 @@ import { equal } from '../src/equal';
 import { Ray } from '../src/Ray';
 import { point, vector } from '../src/Tuple';
 import { Sphere } from '../src/Sphere';
-import { translationTransformation } from '../src/transformations';
+import { translationTransformation, scalingTransformation } from '../src/transformations';
 
 describe('the Ray class', () => {
   it('can be contstructed with a point for an origin and a vector for a direction', () => {
@@ -94,5 +94,16 @@ describe('the Ray class', () => {
     expect(translatedRay.origin.isEqualTo(point(4, 6, 8))).toBeTruthy();
     expect(ray.direction.isEqualTo(vector(0, 1, 0))).toBeTruthy();
     expect(translatedRay.direction.isEqualTo(vector(0, 1, 0))).toBeTruthy();
+  });
+
+  it('can be scaled, returning a new ray, and not modifying the original', () => {
+    const ray = new Ray(point(1, 2, 3), vector(0, 1, 0));
+    const translation = scalingTransformation(2, 3, 4);
+    const translatedRay = ray.transform(translation);
+
+    expect(ray.origin.isEqualTo(point(1, 2, 3))).toBeTruthy();
+    expect(translatedRay.origin.isEqualTo(point(2, 6, 12))).toBeTruthy();
+    expect(ray.direction.isEqualTo(vector(0, 1, 0))).toBeTruthy();
+    expect(translatedRay.direction.isEqualTo(vector(0, 3, 0))).toBeTruthy();
   });
 });
