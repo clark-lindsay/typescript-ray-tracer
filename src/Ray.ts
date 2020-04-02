@@ -1,5 +1,6 @@
 import { Tuple } from './Tuple';
 import { Sphere } from './Sphere';
+import { Intersection } from './interfaces';
 
 export class Ray {
   origin: Tuple;
@@ -13,15 +14,15 @@ export class Ray {
     return this.origin.add(this.direction.scalarMultiply(t));
   }
 
-  intersects(sphere: Sphere): number[] {
-    const [discriminant, t1, t2] = disrciminant(sphere, this);
+  intersects(sphere: Sphere): Intersection[] {
+    const [discriminant, t1, t2] = disrciminantAndIntersectionTimes(sphere, this);
     if (discriminant < 0) {
       return [];
     } else {
-      return [t1, t2];
+      return [new Intersection(t1, sphere), new Intersection(t2, sphere)];
     }
 
-    function disrciminant(sphere: Sphere, ray: Ray): [number, number, number] {
+    function disrciminantAndIntersectionTimes(sphere: Sphere, ray: Ray): [number, number, number] {
       const sphereToRay = ray.origin.subtract(sphere.center);
       const a = ray.direction.dotProduct(ray.direction);
       const b = 2 * ray.direction.dotProduct(sphereToRay);

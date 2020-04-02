@@ -33,8 +33,8 @@ describe('the Ray class', () => {
     const intersections = ray.intersects(sphere);
 
     expect(intersections.length).toEqual(2);
-    expect(equal(intersections[0], 4)).toBeTruthy();
-    expect(equal(intersections[1], 6)).toBeTruthy();
+    expect(equal(intersections[0].t, 4)).toBeTruthy();
+    expect(equal(intersections[1].t, 6)).toBeTruthy();
   });
 
   it('returns two points if a ray intersects a sphere at a tangent', () => {
@@ -43,8 +43,8 @@ describe('the Ray class', () => {
     const intersections = ray.intersects(sphere);
 
     expect(intersections.length).toEqual(2);
-    expect(equal(intersections[0], 5)).toBeTruthy();
-    expect(equal(intersections[1], 5)).toBeTruthy();
+    expect(equal(intersections[0].t, 5)).toBeTruthy();
+    expect(equal(intersections[1].t, 5)).toBeTruthy();
   });
 
   it('returns an empty intersections array when a ray misses a sphere', () => {
@@ -61,8 +61,8 @@ describe('the Ray class', () => {
     const intersections = ray.intersects(sphere);
 
     expect(intersections.length).toEqual(2);
-    expect(equal(intersections[0], -1)).toBeTruthy();
-    expect(equal(intersections[1], 1)).toBeTruthy();
+    expect(equal(intersections[0].t, -1)).toBeTruthy();
+    expect(equal(intersections[1].t, 1)).toBeTruthy();
   });
 
   it('returns two intersections even when a ray originates in front of a sphere and has a direction away from the sphere', () => {
@@ -71,7 +71,15 @@ describe('the Ray class', () => {
     const intersections = ray.intersects(sphere);
 
     expect(intersections.length).toEqual(2);
-    expect(equal(intersections[0], -3)).toBeTruthy();
-    expect(equal(intersections[1], -1)).toBeTruthy();
+    expect(equal(intersections[0].t, -3)).toBeTruthy();
+    expect(equal(intersections[1].t, -1)).toBeTruthy();
+  });
+
+  it('returns the object that the intersection occured with', () => {
+    const ray = new Ray(point(0, 0, -5), vector(0, 0, 1));
+    const sphere = new Sphere();
+    const intersections = ray.intersects(sphere);
+
+    expect(intersections[0].object).toBe(sphere);
   });
 });
