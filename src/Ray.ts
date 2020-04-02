@@ -14,15 +14,23 @@ export class Ray {
   }
 
   intersects(sphere: Sphere): number[] {
-    const sphereToRay = this.origin.subtract(sphere.center);
-    const a = this.direction.dotProduct(this.direction);
-    const b = 2 * this.direction.dotProduct(sphereToRay);
-    const c = sphereToRay.dotProduct(sphereToRay) - 1;
-    const discriminant = Math.pow(b, 2) - 4 * a * c;
+    const [discriminant, t1, t2] = disrciminant(sphere, this);
     if (discriminant < 0) {
       return [];
     } else {
-      return [(-b - Math.sqrt(discriminant)) / (2 * a), (-b + Math.sqrt(discriminant)) / (2 * a)].sort((a, b) => a - b);
+      return [t1, t2];
+    }
+
+    function disrciminant(sphere: Sphere, ray: Ray): [number, number, number] {
+      const sphereToRay = ray.origin.subtract(sphere.center);
+      const a = ray.direction.dotProduct(ray.direction);
+      const b = 2 * ray.direction.dotProduct(sphereToRay);
+      const c = sphereToRay.dotProduct(sphereToRay) - 1;
+
+      const discriminant = Math.pow(b, 2) - 4 * a * c;
+      const t1 = (-b - Math.sqrt(discriminant)) / (2 * a);
+      const t2 = (-b + Math.sqrt(discriminant)) / (2 * a);
+      return [discriminant, t1, t2];
     }
   }
 }
