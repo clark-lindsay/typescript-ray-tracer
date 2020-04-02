@@ -1,4 +1,5 @@
 import { Color } from './Color';
+import { Matrix } from './Matrix';
 
 export class Intersection {
   t: number;
@@ -10,5 +11,6 @@ export class Intersection {
 }
 
 export interface Actor {
+  transform: Matrix;
   color: Color;
 }
