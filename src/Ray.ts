@@ -2,6 +2,7 @@ import { Tuple } from './Tuple';
 import { Matrix } from './Matrix';
 import { Sphere } from './Sphere';
 import { Intersection } from './interfaces';
+import { IntersectionCollection } from './IntersectionCollection';
 
 export class Ray {
   origin: Tuple;
@@ -15,12 +16,12 @@ export class Ray {
     return this.origin.add(this.direction.scalarMultiply(t));
   }
 
-  intersects(sphere: Sphere): Intersection[] {
-    const [discriminant, t1, t2] = disrciminantAndIntersectionTimes(sphere, this);
+  intersects(sphere: Sphere): IntersectionCollection {
+    const [discriminant, t1, t2] = disrciminantAndIntersectionTimes(sphere, this.transform(sphere.transform.inverse()));
     if (discriminant < 0) {
-      return [];
+      return new IntersectionCollection([]);
     } else {
-      return [new Intersection(t1, sphere), new Intersection(t2, sphere)];
+      return new IntersectionCollection([new Intersection(t1, sphere), new Intersection(t2, sphere)]);
     }
 
     function disrciminantAndIntersectionTimes(sphere: Sphere, ray: Ray): [number, number, number] {

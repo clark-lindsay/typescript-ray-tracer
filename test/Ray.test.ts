@@ -31,7 +31,7 @@ describe('the Ray class', () => {
   it('intersects a sphere at two points, if it intersects it at all', () => {
     const ray = new Ray(point(0, 0, -5), vector(0, 0, 1));
     const sphere = new Sphere();
-    const intersections = ray.intersects(sphere);
+    const intersections = ray.intersects(sphere).intersections;
 
     expect(intersections.length).toEqual(2);
     expect(equal(intersections[0].t, 4)).toBeTruthy();
@@ -41,7 +41,7 @@ describe('the Ray class', () => {
   it('returns two points if a ray intersects a sphere at a tangent', () => {
     const ray = new Ray(point(0, 1, -5), vector(0, 0, 1));
     const sphere = new Sphere();
-    const intersections = ray.intersects(sphere);
+    const intersections = ray.intersects(sphere).intersections;
 
     expect(intersections.length).toEqual(2);
     expect(equal(intersections[0].t, 5)).toBeTruthy();
@@ -51,7 +51,7 @@ describe('the Ray class', () => {
   it('returns an empty intersections array when a ray misses a sphere', () => {
     const ray = new Ray(point(0, 2, -5), vector(0, 0, 1));
     const sphere = new Sphere();
-    const intersections = ray.intersects(sphere);
+    const intersections = ray.intersects(sphere).intersections;
 
     expect(intersections.length).toEqual(0);
   });
@@ -59,7 +59,7 @@ describe('the Ray class', () => {
   it('returns two intersections even when a ray originates inside of a sphere', () => {
     const ray = new Ray(point(0, 0, 0), vector(0, 0, 1));
     const sphere = new Sphere();
-    const intersections = ray.intersects(sphere);
+    const intersections = ray.intersects(sphere).intersections;
 
     expect(intersections.length).toEqual(2);
     expect(equal(intersections[0].t, -1)).toBeTruthy();
@@ -69,7 +69,7 @@ describe('the Ray class', () => {
   it('returns two intersections even when a ray originates in front of a sphere and has a direction away from the sphere', () => {
     const ray = new Ray(point(0, 0, 2), vector(0, 0, 1));
     const sphere = new Sphere();
-    const intersections = ray.intersects(sphere);
+    const intersections = ray.intersects(sphere).intersections;
 
     expect(intersections.length).toEqual(2);
     expect(equal(intersections[0].t, -3)).toBeTruthy();
@@ -79,7 +79,7 @@ describe('the Ray class', () => {
   it('returns the object that the intersection occured with', () => {
     const ray = new Ray(point(0, 0, -5), vector(0, 0, 1));
     const sphere = new Sphere();
-    const intersections = ray.intersects(sphere);
+    const intersections = ray.intersects(sphere).intersections;
 
     expect(intersections[0].object).toBe(sphere);
     expect(intersections[1].object).toBe(sphere);
@@ -105,5 +105,25 @@ describe('the Ray class', () => {
     expect(translatedRay.origin.isEqualTo(point(2, 6, 12))).toBeTruthy();
     expect(ray.direction.isEqualTo(vector(0, 1, 0))).toBeTruthy();
     expect(translatedRay.direction.isEqualTo(vector(0, 3, 0))).toBeTruthy();
+  });
+
+  it('produces the correct intersections with a sphere that has been scaled', () => {
+    const ray = new Ray(point(0, 0, -5), vector(0, 0, 1));
+    const sphere = new Sphere();
+    sphere.transform = scalingTransformation(2, 2, 2);
+    const intersections = ray.intersects(sphere).intersections;
+
+    expect(intersections.length).toEqual(2);
+    expect(equal(intersections[0].t, 3)).toBeTruthy();
+    expect(equal(intersections[1].t, 7)).toBeTruthy();
+  });
+
+  it('produces the correct intersections with a sphere that has been translated', () => {
+    const ray = new Ray(point(0, 0, -5), vector(0, 0, 1));
+    const sphere = new Sphere();
+    sphere.transform = translationTransformation(5, 0, 0);
+    const intersections = ray.intersects(sphere).intersections;
+
+    expect(intersections.length).toEqual(0);
   });
 });
