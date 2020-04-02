@@ -1,4 +1,5 @@
 import { Tuple } from './Tuple';
+import { Matrix } from './Matrix';
 import { Sphere } from './Sphere';
 import { Intersection } from './interfaces';
 
@@ -33,5 +34,9 @@ export class Ray {
       const t2 = (-b + Math.sqrt(discriminant)) / (2 * a);
       return [discriminant, t1, t2];
     }
+  }
+
+  transform(transform: Matrix): Ray {
+    return new Ray(this.origin.transform(transform), this.direction.transform(transform));
   }
 }

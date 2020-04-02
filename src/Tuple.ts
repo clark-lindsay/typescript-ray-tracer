@@ -1,3 +1,4 @@
+import { Matrix } from './Matrix';
 import { equal } from './equal';
 
 export class Tuple {
@@ -76,6 +77,10 @@ export class Tuple {
 
   isEqualTo(other: Tuple): boolean {
     return equal(this.x, other.x) && equal(this.y, other.y) && equal(this.z, other.z) && equal(this.w, other.w);
+  }
+
+  transform(transform: Matrix): Tuple {
+    return transform.multipliedBy(this);
   }
 }
 
