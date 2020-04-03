@@ -82,6 +82,10 @@ export class Tuple {
   transform(transform: Matrix): Tuple {
     return transform.multipliedBy(this);
   }
+
+  reflect(normal: Tuple): Tuple {
+    return this.subtract(normal.scalarMultiply(2).scalarMultiply(this.dotProduct(normal)));
+  }
 }
 
 export function point(x: number, y: number, z: number): Tuple {

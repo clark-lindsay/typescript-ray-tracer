@@ -149,6 +149,16 @@ describe('a Tuple', () => {
     expect(() => aPoint.crossProduct(aVector)).toThrow();
     expect(() => aVector.crossProduct(aPoint)).toThrow();
   });
+
+  it('can reflect a vector around a normal', () => {
+    const v = vector(1, -1, 0);
+    const normal = vector(0, 1, 0);
+    const v2 = vector(0, -1, 0);
+    const normal2 = vector(Math.sqrt(2) / 2, Math.sqrt(2) / 2, 0);
+
+    expect(v.reflect(normal).isEqualTo(vector(1, 1, 0))).toBeTruthy();
+    expect(v2.reflect(normal2).isEqualTo(vector(1, 0, 0))).toBeTruthy();
+  });
 });
 
 describe('the point function', () => {
