@@ -14,6 +14,14 @@ export class Sphere implements Actor {
   }
 
   normalAt(pointOnSphere: Tuple): Tuple {
-    return pointOnSphere.subtract(point(0, 0, 0)).normalize();
+    const objectPoint = this.transform.inverse().multipliedBy(pointOnSphere);
+    const objectNormal = objectPoint.subtract(point(0, 0, 0));
+
+    const worldNormal = this.transform
+      .inverse()
+      .transpose()
+      .multipliedBy(objectNormal);
+    worldNormal.w = 0;
+    return worldNormal.normalize();
   }
 }

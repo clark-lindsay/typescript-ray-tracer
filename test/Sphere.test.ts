@@ -1,7 +1,7 @@
 import { Sphere } from '../src/Sphere';
 import { vector, point } from '../src/Tuple';
 import { identityMatrix } from '../src/Matrix';
-import { translationTransformation } from '../src/transformations';
+import { translationTransformation, zRotationTransformation } from '../src/transformations';
 
 describe('the Sphere class', () => {
   it('has a default transform, which is the identity matrix', () => {
@@ -34,5 +34,17 @@ describe('the Sphere class', () => {
         .normalize()
         .isEqualTo(sphere.normalAt(nonAxialPoint))
     ).toBeTruthy();
+  });
+
+  it('can calculate the normal even if the sphere undergoes arbitrary transformations', () => {
+    const sphere = new Sphere();
+    sphere.transform = translationTransformation(0, 1, 0);
+
+    expect(sphere.normalAt(point(0, 1.70711, -0.70711)).isEqualTo(vector(0, 0.70711, -0.70711))).toBeTruthy();
+
+    sphere.transform = zRotationTransformation(Math.PI / 5).scale(1, 0.5, 1);
+
+    const normal = sphere.normalAt(point(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2));
+    expect(normal.isEqualTo(vector(0, 0.97014, -0.24254))).toBeTruthy();
   });
 });
