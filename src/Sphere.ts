@@ -12,4 +12,8 @@ export class Sphere implements Actor {
   constructor(center = point(0, 0, 0), radius = 1, color = new Color(1, 1, 1)) {
     [this.center, this.radius, this.color] = [center, radius, color];
   }
+
+  normalAt(pointOnSphere: Tuple): Tuple {
+    return pointOnSphere.subtract(point(0, 0, 0)).normalize();
+  }
 }

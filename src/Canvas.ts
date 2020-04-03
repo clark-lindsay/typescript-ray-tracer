@@ -41,7 +41,7 @@ export class Canvas {
   writePPM(filePathWithoutExtension: string): void {
     let fileName = filePathWithoutExtension;
     let count = 1;
-    while (existsSync(fileName)) {
+    while (existsSync(`${fileName}.ppm`)) {
       fileName = filePathWithoutExtension + count;
       count += 1;
     }
