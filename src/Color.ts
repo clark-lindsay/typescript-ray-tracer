@@ -1,4 +1,5 @@
 import { vector } from './Tuple';
+import { equal } from './equal';
 
 export class Color {
   private r: number;
@@ -21,7 +22,7 @@ export class Color {
   }
 
   isEqualTo(other: Color): boolean {
-    return this.red() === other.red() && this.green() === other.green() && this.blue() === other.blue();
+    return equal(this.red(), other.red()) && equal(this.green(), other.green()) && equal(this.blue(), other.blue());
   }
 
   add(other: Color): Color {
@@ -40,6 +41,10 @@ export class Color {
 
   multiply(other: Color): Color {
     return new Color(this.red() * other.red(), this.green() * other.green(), this.blue() * other.blue());
+  }
+
+  scalarMultiply(scalar: number): Color {
+    return new Color(this.red() * scalar, this.green() * scalar, this.blue() * scalar);
   }
 
   convertToScale(scaleMin: number = 0, scaleMax: number = 255): Color {

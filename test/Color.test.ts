@@ -39,4 +39,11 @@ describe('the Color class', () => {
     expect(unscaledColor.convertToScale(0, 255).isEqualTo(targetColorFor255)).toBeTruthy();
     expect(unscaledColor.convertToScale(0, 1024).isEqualTo(targetColorFor1024)).toBeTruthy();
   });
+
+  it('can be scaled by a number', () => {
+    const color = new Color(1, 2, 3);
+
+    expect(color.scalarMultiply(2).isEqualTo(new Color(2, 4, 6))).toBeTruthy();
+    expect(color.scalarMultiply(0.5).isEqualTo(new Color(0.5, 1, 1.5))).toBeTruthy();
+  });
 });

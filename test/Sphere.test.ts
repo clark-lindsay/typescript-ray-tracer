@@ -5,20 +5,20 @@ import { translationTransformation, zRotationTransformation } from '../src/trans
 
 describe('the Sphere class', () => {
   it('has a default transform, which is the identity matrix', () => {
-    const sphere = new Sphere();
+    const sphere = new Sphere({});
 
     expect(sphere.transform.isEqualTo(identityMatrix(4))).toBeTruthy();
   });
 
   it('can have its transformation changed', () => {
-    const sphere = new Sphere();
+    const sphere = new Sphere({});
     sphere.transform = translationTransformation(2, 3, 4);
 
     expect(sphere.transform.isEqualTo(translationTransformation(2, 3, 4))).toBeTruthy();
   });
 
   it('can calculate the normal at any point on its surface', () => {
-    const sphere = new Sphere();
+    const sphere = new Sphere({});
 
     expect(sphere.normalAt(point(1, 0, 0)).isEqualTo(vector(1, 0, 0))).toBeTruthy();
     expect(sphere.normalAt(point(0, 1, 0)).isEqualTo(vector(0, 1, 0))).toBeTruthy();
@@ -37,7 +37,7 @@ describe('the Sphere class', () => {
   });
 
   it('can calculate the normal even if the sphere undergoes arbitrary transformations', () => {
-    const sphere = new Sphere();
+    const sphere = new Sphere({});
     sphere.transform = translationTransformation(0, 1, 0);
 
     expect(sphere.normalAt(point(0, 1.70711, -0.70711)).isEqualTo(vector(0, 0.70711, -0.70711))).toBeTruthy();
