@@ -3,9 +3,10 @@ import { Color } from './Color';
 import { PointLight } from './PointLight';
 import { Tuple } from './Tuple';
 
-export function lighting({ material, light, pointBeingLit, directionToEye, normalVector }: LightingArguments): Color {
+export function lighting({ material, light, pointBeingLit, eyePosition, normalVector }: LightingArguments): Color {
   const effectiveColor = material.color.multiply(light.intensity);
   const directionToLightSource = light.position.subtract(pointBeingLit).normalize();
+  const directionToEye = eyePosition.subtract(pointBeingLit).normalize();
 
   const cosineOfAngleBetweenLightAndNormal = directionToLightSource.dotProduct(normalVector);
   let ambient = effectiveColor.scalarMultiply(material.ambient);
@@ -34,6 +35,6 @@ interface LightingArguments {
   material: Material;
   light: PointLight;
   pointBeingLit: Tuple;
-  directionToEye: Tuple;
+  eyePosition: Tuple;
   normalVector: Tuple;
 }
