@@ -16,4 +16,12 @@ export class World {
   lights(): PointLight[] {
     return this.allLights;
   }
+
+  addActor(actor: Actor): void {
+    this.allActors.push(actor);
+  }
+
+  addLight(light: PointLight): void {
+    this.allLights.push(light);
+  }
 }
