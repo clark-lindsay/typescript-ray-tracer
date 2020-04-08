@@ -16,13 +16,36 @@ export class Ray {
     return this.origin.add(this.direction.scalarMultiply(t));
   }
 
-  intersects(sphere: Sphere): IntersectionCollection {
-    const [discriminant, t1, t2] = disrciminantAndIntersectionTimes(sphere, this.transform(sphere.transform.inverse()));
-    if (discriminant < 0) {
-      return new IntersectionCollection([]);
-    } else {
-      return new IntersectionCollection([new Intersection(t1, sphere), new Intersection(t2, sphere)]);
+  // should take an ARRAY of ACTORS (Spheres at the moment) and iterate over that
+  // maybe do a function overload where I can take either a single object or an array, to keep the syntax easy?
+  intersects(sphere: Sphere): IntersectionCollection;
+  intersects(actors: Sphere[]): IntersectionCollection;
+  intersects(actors: any): IntersectionCollection {
+    if (actors instanceof Sphere) {
+      const singleActor = actors;
+      const [discriminant, t1, t2] = disrciminantAndIntersectionTimes(
+        singleActor,
+        this.transform(singleActor.transform.inverse())
+      );
+      if (discriminant < 0) {
+        return new IntersectionCollection();
+      }
+      return new IntersectionCollection([new Intersection(t1, singleActor), new Intersection(t2, singleActor)]);
     }
+
+    const result = new IntersectionCollection();
+    for (const sphere of actors) {
+      const [discriminant, t1, t2] = disrciminantAndIntersectionTimes(
+        sphere,
+        this.transform(sphere.transform.inverse())
+      );
+      if (discriminant < 0) {
+        return new IntersectionCollection();
+      }
+      result.add(new Intersection(t1, sphere));
+      result.add(new Intersection(t2, sphere));
+    }
+    return result;
 
     function disrciminantAndIntersectionTimes(sphere: Sphere, ray: Ray): [number, number, number] {
       const sphereToRay = ray.origin.subtract(sphere.center);

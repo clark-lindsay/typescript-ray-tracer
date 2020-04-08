@@ -1,10 +1,11 @@
 import { World } from '../src/World';
 import { PointLight } from '../src/PointLight';
 import { Color } from '../src/Color';
-import { point } from '../src/Tuple';
+import { point, vector } from '../src/Tuple';
 import { Sphere } from '../src/Sphere';
 import { Material } from '../src/Material';
 import { scalingTransformation } from '../src/transformations';
+import { Ray } from '../src/Ray';
 
 describe('The World class', () => {
   it('is initialized with no Actors and no light sources when its default constructor is called', () => {
@@ -12,6 +13,17 @@ describe('The World class', () => {
 
     expect(world.actors()).toHaveLength(0);
     expect(world.lights()).toHaveLength(0);
+  });
+
+  it('can find intersections with the actors in the world, given a ray', () => {
+    const world = defaultWorld();
+    const intersections = world.intersect(new Ray(point(0, 0, -5), vector(0, 0, 1)));
+
+    expect(intersections.intersections()).toHaveLength(4);
+    expect(intersections.intersections()[0].t).toEqual(4);
+    expect(intersections.intersections()[1].t).toEqual(4.5);
+    expect(intersections.intersections()[2].t).toEqual(5.5);
+    expect(intersections.intersections()[3].t).toEqual(6);
   });
 });
 

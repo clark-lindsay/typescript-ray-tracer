@@ -1,15 +1,17 @@
-import { Actor } from './interfaces';
 import { PointLight } from './PointLight';
+import { Ray } from './Ray';
+import { IntersectionCollection } from './IntersectionCollection';
+import { Sphere } from './Sphere';
 
 export class World {
-  private allActors: Actor[];
+  private allActors: Sphere[];
   private allLights: PointLight[];
 
   constructor() {
     [this.allActors, this.allLights] = [[], []];
   }
 
-  actors(): Actor[] {
+  actors(): Sphere[] {
     return this.allActors;
   }
 
@@ -17,11 +19,15 @@ export class World {
     return this.allLights;
   }
 
-  addActor(actor: Actor): void {
+  addActor(actor: Sphere): void {
     this.allActors.push(actor);
   }
 
   addLight(light: PointLight): void {
     this.allLights.push(light);
+  }
+
+  intersect(ray: Ray): IntersectionCollection {
+    return ray.intersects(this.actors());
   }
 }

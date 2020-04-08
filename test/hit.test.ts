@@ -26,7 +26,7 @@ describe('the hit function', () => {
   });
 
   it('returns null when given an empty list of intersections', () => {
-    expect(hit(new IntersectionCollection([]))).toBeNull();
+    expect(hit(new IntersectionCollection())).toBeNull();
   });
 
   it('always returns the lowest non-negative integer if there are multiple', () => {
