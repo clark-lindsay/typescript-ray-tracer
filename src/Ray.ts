@@ -16,8 +16,6 @@ export class Ray {
     return this.origin.add(this.direction.scalarMultiply(t));
   }
 
-  // should take an ARRAY of ACTORS (Spheres at the moment) and iterate over that
-  // maybe do a function overload where I can take either a single object or an array, to keep the syntax easy?
   intersects(sphere: Sphere): IntersectionCollection;
   intersects(actors: Sphere[]): IntersectionCollection;
   intersects(actors: any): IntersectionCollection {

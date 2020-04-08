@@ -21,4 +21,8 @@ export class IntersectionCollection {
   intersections(): Intersection[] {
     return this.collection;
   }
+
+  [Symbol.iterator]() {
+    return this.intersections().values();
+  }
 }
