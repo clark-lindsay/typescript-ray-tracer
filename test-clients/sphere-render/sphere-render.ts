@@ -33,7 +33,7 @@ export function renderSphere(canvasSize: number): void {
           material: sphere.material,
           light: lightSource,
           pointBeingLit: pointOfImpact,
-          normalVector: normalAtImpact,
+          normalAtPointBeingLit: normalAtImpact,
           eyePosition
         });
         canvas.setPixelAt(x, y, color);

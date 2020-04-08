@@ -5,13 +5,19 @@ import { Tuple } from './Tuple';
 
 const black = new Color(0, 0, 0);
 
-export function lighting({ material, light, pointBeingLit, eyePosition, normalVector }: LightingArguments): Color {
+export function lighting({
+  material,
+  light,
+  pointBeingLit,
+  eyePosition,
+  normalAtPointBeingLit
+}: LightingArguments): Color {
   const result = { ambient: black, diffuse: black, specular: black };
 
   const sceneAmbientColor = material.color.multiply(light.intensity);
   const directionToLightSource = light.position.subtract(pointBeingLit).normalize();
   const directionToEye = eyePosition.subtract(pointBeingLit).normalize();
-  const cosineOfAngleBetweenLightAndNormal = directionToLightSource.dotProduct(normalVector);
+  const cosineOfAngleBetweenLightAndNormal = directionToLightSource.dotProduct(normalAtPointBeingLit);
 
   result.ambient = ambientComponent();
   if (cosineOfAngleBetweenLightAndNormal < 0) {
@@ -33,7 +39,7 @@ export function lighting({ material, light, pointBeingLit, eyePosition, normalVe
   function specularComponent(): Color {
     const cosineOfAngleBetweenReflectionAndEye = directionToLightSource
       .negate()
-      .reflect(normalVector)
+      .reflect(normalAtPointBeingLit)
       .dotProduct(directionToEye);
     if (cosineOfAngleBetweenReflectionAndEye <= 0) {
       return black;
@@ -48,7 +54,7 @@ interface LightingArguments {
   light: PointLight;
   pointBeingLit: Tuple;
   eyePosition: Tuple;
-  normalVector: Tuple;
+  normalAtPointBeingLit: Tuple;
 }
 
 function calculateSpecularComponent(

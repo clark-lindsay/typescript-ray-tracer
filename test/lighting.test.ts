@@ -9,12 +9,14 @@ describe('the reflection of a Material under different conditions', () => {
     const material = new Material({});
     const pointBeingLit = point(0, 0, 0);
 
-    const normalVector = vector(0, 0, -1);
+    const normalAtPointBeingLit = vector(0, 0, -1);
     const eyePosition = point(0, 0, -1);
     const light = new PointLight(new Color(1, 1, 1), point(0, 0, -10));
 
     expect(
-      lighting({ material, light, pointBeingLit, eyePosition, normalVector }).isEqualTo(new Color(1.9, 1.9, 1.9))
+      lighting({ material, light, pointBeingLit, eyePosition, normalAtPointBeingLit }).isEqualTo(
+        new Color(1.9, 1.9, 1.9)
+      )
     ).toBeTruthy();
   });
 
@@ -22,12 +24,14 @@ describe('the reflection of a Material under different conditions', () => {
     const material = new Material({});
     const pointBeingLit = point(0, 0, 0);
 
-    const normalVector = vector(0, 0, -1);
+    const normalAtPointBeingLit = vector(0, 0, -1);
     const eyePosition = point(0, Math.sqrt(2) / 2, -Math.sqrt(2) / 2);
     const light = new PointLight(new Color(1, 1, 1), point(0, 0, -10));
 
     expect(
-      lighting({ material, light, pointBeingLit, eyePosition, normalVector }).isEqualTo(new Color(1.0, 1.0, 1.0))
+      lighting({ material, light, pointBeingLit, eyePosition, normalAtPointBeingLit }).isEqualTo(
+        new Color(1.0, 1.0, 1.0)
+      )
     ).toBeTruthy();
   });
 
@@ -35,12 +39,12 @@ describe('the reflection of a Material under different conditions', () => {
     const material = new Material({});
     const pointBeingLit = point(0, 0, 0);
 
-    const normalVector = vector(0, 0, -1);
+    const normalAtPointBeingLit = vector(0, 0, -1);
     const eyePosition = point(0, 0, -1);
     const light = new PointLight(new Color(1, 1, 1), point(0, 10, -10));
 
     expect(
-      lighting({ material, light, pointBeingLit, eyePosition, normalVector }).isEqualTo(
+      lighting({ material, light, pointBeingLit, eyePosition, normalAtPointBeingLit }).isEqualTo(
         new Color(0.7364, 0.7364, 0.7364)
       )
     ).toBeTruthy();
@@ -50,12 +54,12 @@ describe('the reflection of a Material under different conditions', () => {
     const material = new Material({});
     const pointBeingLit = point(0, 0, 0);
 
-    const normalVector = vector(0, 0, -1);
+    const normalAtPointBeingLit = vector(0, 0, -1);
     const eyePosition = point(0, -Math.sqrt(2) / 2, -Math.sqrt(2) / 2);
     const light = new PointLight(new Color(1, 1, 1), point(0, 10, -10));
 
     expect(
-      lighting({ material, light, pointBeingLit, eyePosition, normalVector }).isEqualTo(
+      lighting({ material, light, pointBeingLit, eyePosition, normalAtPointBeingLit }).isEqualTo(
         new Color(1.6364, 1.6364, 1.6364)
       )
     ).toBeTruthy();

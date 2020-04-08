@@ -47,7 +47,9 @@ export class Tuple {
   dotProduct(other: Tuple): number {
     const dimensions = [this.x, this.y, this.z, this.w];
     const otherDimensions = [other.x, other.y, other.z, other.w];
-    return dimensions.map((num, index) => num * otherDimensions[index]).reduce((accumulator, num) => accumulator + num);
+    return dimensions
+      .map((num, index) => num * otherDimensions[index])
+      .reduce((accumulator, product) => accumulator + product);
   }
 
   crossProduct(other: Tuple): Tuple {
