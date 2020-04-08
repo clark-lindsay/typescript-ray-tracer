@@ -56,4 +56,8 @@ export class Color {
 
     return new Color(resultRed, resultGreen, resultBlue);
   }
+
+  toString() {
+    return `${this.red()} ${this.green()} ${this.blue()}`;
+  }
 }

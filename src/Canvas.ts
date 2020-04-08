@@ -76,7 +76,7 @@ function rowToPPM(row: Color[]): string {
   const pixels = [];
   for (const pixel of row) {
     const scaledPixel = pixel.convertToScale();
-    pixels.push(`${scaledPixel.red()} ${scaledPixel.green()} ${scaledPixel.blue()} `);
+    pixels.push(`${scaledPixel.toString()} `);
   }
   return pixels.join('').trimRight() + '\n';
 }
