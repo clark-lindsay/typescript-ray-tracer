@@ -39,19 +39,22 @@ export class Canvas {
   }
 
   writePPM(filePathWithoutExtension: string): void {
-    let fileName = filePathWithoutExtension;
-    let count = 1;
-    while (existsSync(`${fileName}.ppm`)) {
-      fileName = filePathWithoutExtension + count;
-      count += 1;
-    }
+    const fileName = findUnusedFileName();
     const plainPPMHeader = `P3\n${this.width()} ${this.height()}\n255\n`;
     const writeStream = createWriteStream(fileName + '.ppm', { flags: 'a' });
     writeStream.write(plainPPMHeader);
-    for (const row of this.grid()) {
-      writeStream.write(rowToPPM(row));
-    }
+    this.grid().forEach(row => writeStream.write(rowToPPM(row)));
     writeStream.end();
+
+    function findUnusedFileName(): string {
+      let result = filePathWithoutExtension;
+      let count = 1;
+      while (existsSync(`${result}.ppm`)) {
+        result = filePathWithoutExtension + count;
+        count += 1;
+      }
+      return result;
+    }
   }
 
   toPPM(): string {
