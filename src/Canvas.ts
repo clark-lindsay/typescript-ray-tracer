@@ -57,11 +57,9 @@ export class Canvas {
   toPPM(): string {
     const plainPPMHeader = `P3\n${this.width()} ${this.height()}\n255\n`;
     let result = plainPPMHeader;
-    const rows = [];
-    for (const row of this.grid()) {
-      rows.push(rowToPPM(row));
-    }
-    result += rows.join('');
+    result += this.grid()
+      .map(row => rowToPPM(row))
+      .join('');
     return result;
   }
 
