@@ -73,10 +73,11 @@ export class Canvas {
 }
 
 function rowToPPM(row: Color[]): string {
-  const pixels = [];
-  for (const pixel of row) {
-    const scaledPixel = pixel.convertToScale();
-    pixels.push(`${scaledPixel.toString()} `);
-  }
-  return pixels.join('').trimRight() + '\n';
+  return (
+    row
+      .map(pixel => pixel.convertToScale())
+      .map(pixel => `${pixel.toString()} `)
+      .join('')
+      .trimRight() + '\n'
+  );
 }
