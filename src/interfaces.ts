@@ -12,7 +12,7 @@ export interface HitData {
   t: number;
   actor: Sphere;
   point: Tuple;
-  directionToEye: Tuple;
+  eyePosition: Tuple;
   normalAtHit: Tuple;
   isInsideActor: boolean;
 }

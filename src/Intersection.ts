@@ -14,10 +14,10 @@ export class Intersection {
     const t = this.t;
     const actor = this.actor;
     const point = ray.position(this.t);
-    const directionToEye = ray.direction.normalize().negate();
+    const eyePosition = ray.origin;
     let normalAtHit = this.actor.normalAt(point);
-    const isInsideActor = normalAtHit.dotProduct(directionToEye) < 0 ? true : false;
+    const isInsideActor = normalAtHit.dotProduct(ray.direction.normalize().negate()) < 0 ? true : false;
     normalAtHit = isInsideActor ? normalAtHit.scalarMultiply(-1) : normalAtHit;
-    return { t, actor, point, directionToEye, normalAtHit, isInsideActor };
+    return { t, actor, point, eyePosition, normalAtHit, isInsideActor };
   }
 }

@@ -6,6 +6,7 @@ import { Sphere } from '../src/Sphere';
 import { Material } from '../src/Material';
 import { scalingTransformation } from '../src/transformations';
 import { Ray } from '../src/Ray';
+import { Intersection } from '../src/Intersection';
 
 describe('The World class', () => {
   it('is initialized with no Actors and no light sources when its default constructor is called', () => {
@@ -24,6 +25,30 @@ describe('The World class', () => {
     expect(intersections.intersections()[1].t).toEqual(4.5);
     expect(intersections.intersections()[2].t).toEqual(5.5);
     expect(intersections.intersections()[3].t).toEqual(6);
+  });
+
+  it('can calculate the color of a hit, given the HitData of the ray that made it and the Intersection', () => {
+    const world = defaultWorld();
+    const ray = new Ray(point(0, 0, -5), vector(0, 0, 1));
+    const sphere = world.actors()[0];
+    const intersection = new Intersection(4, sphere);
+    const hitData = intersection.hitData(ray);
+
+    expect(world.shadeFromHitData(hitData).isEqualTo(new Color(0.38066, 0.47583, 0.2855))).toBeTruthy();
+  });
+
+  it('can calculate the color of a hit when the hit is inside the Actor, given the HitData of the ray that made it and the Intersection', () => {
+    const world = new World();
+    const smallSphere = new Sphere({});
+    smallSphere.transform = scalingTransformation(0.5, 0.5, 0.5);
+    world.addActor(smallSphere);
+    world.addLight(new PointLight(new Color(1, 1, 1), point(0, 0.25, 0)));
+    const ray = new Ray(point(0, 0, 0), vector(0, 0, 1));
+    const sphere = world.actors()[0];
+    const intersection = new Intersection(0.5, sphere);
+    const hitData = intersection.hitData(ray);
+
+    expect(world.shadeFromHitData(hitData).isEqualTo(new Color(0.90498, 0.90498, 0.90498))).toBeTruthy();
   });
 });
 

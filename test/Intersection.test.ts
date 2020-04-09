@@ -15,7 +15,7 @@ describe('the hitData function', () => {
     expect(equal(data.t, intersection.t)).toBeTruthy();
     expect(data.actor).toBe(shape);
     expect(data.point.isEqualTo(point(0, 0, -1))).toBeTruthy();
-    expect(data.directionToEye.isEqualTo(vector(0, 0, -1))).toBeTruthy();
+    expect(data.eyePosition.isEqualTo(point(0, 0, -5))).toBeTruthy();
     expect(data.normalAtHit.isEqualTo(vector(0, 0, -1))).toBeTruthy();
   });
 
