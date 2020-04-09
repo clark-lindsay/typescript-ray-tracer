@@ -1,5 +1,5 @@
 import { IntersectionCollection } from '../src/IntersectionCollection';
-import { Intersection } from '../src/interfaces';
+import { Intersection } from '../src/Intersection';
 import { Sphere } from '../src/Sphere';
 
 describe('The IntersectionCollection class', () => {

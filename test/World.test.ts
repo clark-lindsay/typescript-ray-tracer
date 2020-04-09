@@ -15,7 +15,7 @@ describe('The World class', () => {
     expect(world.lights()).toHaveLength(0);
   });
 
-  it('can find intersections with the actors in the world, given a ray', () => {
+  it('can find intersections (in sorted order) with the actors in the world, given a ray', () => {
     const world = defaultWorld();
     const intersections = world.intersect(new Ray(point(0, 0, -5), vector(0, 0, 1)));
 

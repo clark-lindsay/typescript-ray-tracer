@@ -1,6 +1,6 @@
 import { hit } from '../src/hit';
 import { Sphere } from '../src/Sphere';
-import { Intersection } from '../src/interfaces';
+import { Intersection } from '../src/Intersection';
 import { IntersectionCollection } from '../src/IntersectionCollection';
 
 describe('the hit function', () => {

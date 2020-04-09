@@ -1,8 +1,8 @@
-import { Actor } from './interfaces';
 import { Tuple, point } from './Tuple';
 import { Color } from './Color';
 import { Matrix, identityMatrix } from './Matrix';
 import { Material } from './Material';
+import { Actor } from './interfaces';
 
 export class Sphere implements Actor {
   center: Tuple;

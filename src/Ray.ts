@@ -1,7 +1,7 @@
 import { Tuple } from './Tuple';
 import { Matrix } from './Matrix';
 import { Sphere } from './Sphere';
-import { Intersection } from './interfaces';
+import { Intersection } from './Intersection';
 import { IntersectionCollection } from './IntersectionCollection';
 
 export class Ray {
