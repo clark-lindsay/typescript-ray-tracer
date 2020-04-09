@@ -5,6 +5,7 @@ import { Sphere } from './Sphere';
 import { HitData } from './interfaces';
 import { Color } from './Color';
 import { lighting } from './lighting';
+import { hit } from './hit';
 
 export class World {
   private allActors: Sphere[];
@@ -34,7 +35,15 @@ export class World {
     return ray.intersects(this.actors());
   }
 
-  shadeFromHitData(hitData: HitData): Color {
+  colorAtHit(ray: Ray): Color {
+    const firstIntersection = hit(this.intersect(ray));
+    if (firstIntersection) {
+      return this.shadeFromHitData(firstIntersection.hitData(ray));
+    }
+    return new Color(0, 0, 0);
+  }
+
+  private shadeFromHitData(hitData: HitData): Color {
     return this.allLights
       .map(light =>
         lighting({

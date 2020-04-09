@@ -1,4 +1,4 @@
-import { Intersection } from './interfaces';
+import { Intersection } from './Intersection';
 import { IntersectionCollection } from './IntersectionCollection';
 
 export function hit(intersectionCollection: IntersectionCollection): Intersection | null {
