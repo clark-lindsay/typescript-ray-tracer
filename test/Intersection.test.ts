@@ -18,4 +18,23 @@ describe('the hitData function', () => {
     expect(data.directionToEye.isEqualTo(vector(0, 0, -1))).toBeTruthy();
     expect(data.normalAtHit.isEqualTo(vector(0, 0, -1))).toBeTruthy();
   });
+
+  it('when a hit occurs on the outside of an Actor, the HitData returned has "isInsideActor" = false', () => {
+    const ray = new Ray(point(0, 0, -5), vector(0, 0, 1));
+    const shape = new Sphere({});
+    const intersection = new Intersection(4, shape);
+    const data = intersection.hitData(ray);
+
+    expect(data.isInsideActor).toEqual(false);
+  });
+
+  it('when a hit occurs on the inside of an Actor, the HitData returned has "isInsideActor" = true, and the normal is inverted (i.e. pointing inwards)', () => {
+    const ray = new Ray(point(0, 0, 0), vector(0, 0, 1));
+    const shape = new Sphere({});
+    const intersection = new Intersection(1, shape);
+    const data = intersection.hitData(ray);
+
+    expect(data.isInsideActor).toEqual(true);
+    expect(data.normalAtHit.isEqualTo(vector(0, 0, -1))).toBeTruthy();
+  });
 });
