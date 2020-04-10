@@ -8,7 +8,7 @@ import {
   viewTransformation
 } from '../src/transformations';
 import { point, vector } from '../src/Tuple';
-import { identityMatrix } from '../src/Matrix';
+import { identityMatrix, Matrix } from '../src/Matrix';
 
 describe('the Matrix transformation functions', () => {
   describe('the translation function', () => {
@@ -168,7 +168,36 @@ describe('the Matrix transformation functions', () => {
 
   describe('the viewTransformation function', () => {
     it('returns the identity matrix when the eye is in the default orientation: at the origin, looking in the negative z direction, with positive y being up', () => {
-      expect(viewTransformation().isEqualTo(identityMatrix(4))).toBeTruthy();
+      expect(viewTransformation({}).isEqualTo(identityMatrix(4))).toBeTruthy();
+    });
+
+    it('returns a matrix that flips the x and z axes, reflecting them about the origin, when it is given the default position but turned to look in the positive z direction', () => {
+      expect(viewTransformation({ eyeFocus: point(0, 0, 1) }).isEqualTo(scalingTransformation(-1, 1, -1))).toBeTruthy();
+    });
+
+    it("moves the WORLD, not the eye, based on the eye's orientation", () => {
+      expect(
+        viewTransformation({ eyePosition: point(0, 0, 8), eyeFocus: point(0, 0, 0) }).isEqualTo(
+          translationTransformation(0, 0, -8)
+        )
+      ).toBeTruthy();
+    });
+
+    it('can accomodate for an arbitrary view transformation', () => {
+      expect(
+        viewTransformation({
+          eyePosition: point(1, 3, 2),
+          eyeFocus: point(4, -2, 8),
+          upRelativeToEye: vector(1, 1, 0)
+        }).isEqualTo(
+          new Matrix([
+            [-0.50709, 0.50709, 0.67612, -2.36643],
+            [0.76772, 0.60609, 0.12122, -2.82843],
+            [-0.35857, 0.59761, -0.71714, 0.0],
+            [0, 0, 0, 1]
+          ])
+        )
+      ).toBeTruthy();
     });
   });
 });
