@@ -1,4 +1,4 @@
-import { Intersection } from './interfaces';
+import { Intersection } from './Intersection';
 
 // this may need something more robust like a BST
 // at large scales, efficiency is going to get out of hand quickly
