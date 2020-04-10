@@ -168,7 +168,7 @@ describe('the Matrix transformation functions', () => {
 
   describe('the viewTransformation function', () => {
     it('returns the identity matrix when the eye is in the default orientation: at the origin, looking in the negative z direction, with positive y being up', () => {
-      expect(viewTransformation({}).isEqualTo(identityMatrix(4))).toBeTruthy();
+      expect(viewTransformation().isEqualTo(identityMatrix(4))).toBeTruthy();
     });
 
     it('returns a matrix that flips the x and z axes, reflecting them about the origin, when it is given the default position but turned to look in the positive z direction', () => {
