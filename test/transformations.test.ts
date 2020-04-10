@@ -4,9 +4,11 @@ import {
   xRotationTransformation,
   yRotationTransformation,
   zRotationTransformation,
-  shearTransformation
+  shearTransformation,
+  viewTransformation
 } from '../src/transformations';
 import { point, vector } from '../src/Tuple';
+import { identityMatrix } from '../src/Matrix';
 
 describe('the Matrix transformation functions', () => {
   describe('the translation function', () => {
@@ -161,6 +163,12 @@ describe('the Matrix transformation functions', () => {
           .multipliedBy(p)
           .isEqualTo(point(15, 0, 7))
       ).toBeFalsy();
+    });
+  });
+
+  describe('the viewTransformation function', () => {
+    it('returns the identity matrix when the eye is in the default orientation: at the origin, looking in the negative z direction, with positive y being up', () => {
+      expect(viewTransformation().isEqualTo(identityMatrix(4))).toBeTruthy();
     });
   });
 });

@@ -1,4 +1,5 @@
-import { Matrix, identityGrid } from './Matrix';
+import { Matrix, identityGrid, identityMatrix } from './Matrix';
+import { Tuple, point, vector } from './Tuple';
 
 export function translationTransformation(x: number, y: number, z: number): Matrix {
   const result = identityGrid(4);
@@ -59,4 +60,12 @@ export function shearTransformation(
   result[2][0] = zInProportionToX;
   result[2][1] = zInProportionToY;
   return new Matrix(result);
+}
+
+export function viewTransformation(
+  eyePosition: Tuple = point(0, 0, 0),
+  eyeFocus: Tuple = point(0, 0, -1),
+  upRelativeToEye: Tuple = vector(0, 1, 0)
+): Matrix {
+  return identityMatrix(4);
 }
