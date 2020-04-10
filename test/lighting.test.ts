@@ -6,7 +6,7 @@ import { lighting } from '../src/lighting';
 
 describe('the reflection of a Material under different conditions', () => {
   it('reflects at full intensity when the light source is behind the eye, and the material is default', () => {
-    const material = new Material({});
+    const material = new Material();
     const pointBeingLit = point(0, 0, 0);
 
     const normalAtPointBeingLit = vector(0, 0, -1);
@@ -21,7 +21,7 @@ describe('the reflection of a Material under different conditions', () => {
   });
 
   it('lights correctly when the eye is betwwen the light and the surface, but offset by 45 degrees', () => {
-    const material = new Material({});
+    const material = new Material();
     const pointBeingLit = point(0, 0, 0);
 
     const normalAtPointBeingLit = vector(0, 0, -1);
@@ -36,7 +36,7 @@ describe('the reflection of a Material under different conditions', () => {
   });
 
   it('lights correctly with the eye straight on with the surface and the light source offset by 45 degrees', () => {
-    const material = new Material({});
+    const material = new Material();
     const pointBeingLit = point(0, 0, 0);
 
     const normalAtPointBeingLit = vector(0, 0, -1);
@@ -51,7 +51,7 @@ describe('the reflection of a Material under different conditions', () => {
   });
 
   it('lights correctly with the eye in the path of the reflection vector', () => {
-    const material = new Material({});
+    const material = new Material();
     const pointBeingLit = point(0, 0, 0);
 
     const normalAtPointBeingLit = vector(0, 0, -1);

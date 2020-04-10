@@ -11,7 +11,7 @@ export class Sphere implements Actor {
   transform: Matrix = identityMatrix(4);
   material: Material;
 
-  constructor({ center = point(0, 0, 0), radius = 1, color = new Color(1, 1, 1), material = new Material({}) }) {
+  constructor({ center = point(0, 0, 0), radius = 1, color = new Color(1, 1, 1), material = new Material() } = {}) {
     [this.center, this.radius, this.color, this.material] = [center, radius, color, material];
   }
 

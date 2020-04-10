@@ -4,7 +4,7 @@ import { Sphere } from '../src/Sphere';
 
 describe('The IntersectionCollection class', () => {
   it('can add a new intersection and keep its collection sorted', () => {
-    const sphere = new Sphere({});
+    const sphere = new Sphere();
     const collection = new IntersectionCollection([
       new Intersection(0, sphere),
       new Intersection(1, sphere),

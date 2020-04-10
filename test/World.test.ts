@@ -58,7 +58,7 @@ describe('the "defaultWorld" test set-up function', () => {
     const outerSphere = new Sphere({
       material: new Material({ color: new Color(0.8, 1.0, 0.6), diffuse: 0.7, specular: 0.2 })
     });
-    const innerSphere = new Sphere({});
+    const innerSphere = new Sphere();
     innerSphere.transform = scalingTransformation(0.5, 0.5, 0.5);
 
     const world = defaultWorld();
@@ -74,7 +74,7 @@ function defaultWorld(): World {
   const outerSphere = new Sphere({
     material: new Material({ color: new Color(0.8, 1.0, 0.6), diffuse: 0.7, specular: 0.2 })
   });
-  const innerSphere = new Sphere({});
+  const innerSphere = new Sphere();
   innerSphere.transform = scalingTransformation(0.5, 0.5, 0.5);
   const result = new World();
   result.addActor(outerSphere);
