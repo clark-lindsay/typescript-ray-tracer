@@ -104,8 +104,8 @@ describe('the Matrix transformation functions', () => {
   describe('the shearing (skew) transformation', () => {
     it('can move x in proportion to y or z', () => {
       const p = point(2, 3, 4);
-      const shearXInProportionToY = shearTransformation(1, 0, 0, 0, 0, 0);
-      const shearXInProportionToZ = shearTransformation(0, 1, 0, 0, 0, 0);
+      const shearXInProportionToY = shearTransformation({ xInProportionToY: 1 });
+      const shearXInProportionToZ = shearTransformation({ xInProportionToZ: 1 });
 
       expect(shearXInProportionToY.multipliedBy(p).isEqualTo(point(5, 3, 4))).toBeTruthy();
       expect(shearXInProportionToZ.multipliedBy(p).isEqualTo(point(6, 3, 4))).toBeTruthy();
@@ -113,8 +113,8 @@ describe('the Matrix transformation functions', () => {
 
     it('can move y in proportion to x or z', () => {
       const p = point(2, 3, 4);
-      const shearYInProportionToX = shearTransformation(0, 0, 1, 0, 0, 0);
-      const shearYInProportionToZ = shearTransformation(0, 0, 0, 1, 0, 0);
+      const shearYInProportionToX = shearTransformation({ yInProportionToX: 1 });
+      const shearYInProportionToZ = shearTransformation({ yInProportionToZ: 1 });
 
       expect(shearYInProportionToX.multipliedBy(p).isEqualTo(point(2, 5, 4))).toBeTruthy();
       expect(shearYInProportionToZ.multipliedBy(p).isEqualTo(point(2, 7, 4))).toBeTruthy();
@@ -122,8 +122,8 @@ describe('the Matrix transformation functions', () => {
 
     it('can move z in proportion to x or y', () => {
       const p = point(2, 3, 4);
-      const shearZInProportionToX = shearTransformation(0, 0, 0, 0, 1, 0);
-      const shearZInProportionToY = shearTransformation(0, 0, 0, 0, 0, 1);
+      const shearZInProportionToX = shearTransformation({ zInProportionToX: 1 });
+      const shearZInProportionToY = shearTransformation({ zInProportionToY: 1 });
 
       expect(shearZInProportionToX.multipliedBy(p).isEqualTo(point(2, 3, 6))).toBeTruthy();
       expect(shearZInProportionToY.multipliedBy(p).isEqualTo(point(2, 3, 7))).toBeTruthy();

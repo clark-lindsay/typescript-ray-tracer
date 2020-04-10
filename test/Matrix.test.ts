@@ -370,14 +370,23 @@ describe('the Matrix class', () => {
     const identity = identityMatrix(4);
 
     expect(
-      identity.shear(1, 2, 3, 4, 5, 6).isEqualTo(
-        new Matrix([
-          [1, 1, 2, 0],
-          [3, 1, 4, 0],
-          [5, 6, 1, 0],
-          [0, 0, 0, 1]
-        ])
-      )
+      identity
+        .shear({
+          xInProportionToY: 1,
+          xInProportionToZ: 2,
+          yInProportionToX: 3,
+          yInProportionToZ: 4,
+          zInProportionToX: 5,
+          zInProportionToY: 6
+        })
+        .isEqualTo(
+          new Matrix([
+            [1, 1, 2, 0],
+            [3, 1, 4, 0],
+            [5, 6, 1, 0],
+            [0, 0, 0, 1]
+          ])
+        )
     ).toBeTruthy();
   });
 

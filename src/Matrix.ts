@@ -157,22 +157,22 @@ export class Matrix {
     return scalingTransformation(x, y, z).cross(this);
   }
 
-  shear(
-    xInProportionToY: number,
-    xInProportionToZ: number,
-    yInProportionToX: number,
-    yInProportionToZ: number,
-    zInProportionToX: number,
-    zInProportionToY: number
-  ): Matrix {
-    return shearTransformation(
+  shear({
+    xInProportionToY = 0,
+    xInProportionToZ = 0,
+    yInProportionToX = 0,
+    yInProportionToZ = 0,
+    zInProportionToX = 0,
+    zInProportionToY = 0
+  } = {}): Matrix {
+    return shearTransformation({
       xInProportionToY,
       xInProportionToZ,
       yInProportionToX,
       yInProportionToZ,
       zInProportionToX,
       zInProportionToY
-    ).cross(this);
+    }).cross(this);
   }
 }
 

@@ -44,14 +44,14 @@ export function zRotationTransformation(degreesInRadians: number): Matrix {
   return new Matrix(result);
 }
 
-export function shearTransformation(
-  xInProportionToY: number,
-  xInProportionToZ: number,
-  yInProportionToX: number,
-  yInProportionToZ: number,
-  zInProportionToX: number,
-  zInProportionToY: number
-): Matrix {
+export function shearTransformation({
+  xInProportionToY = 0,
+  xInProportionToZ = 0,
+  yInProportionToX = 0,
+  yInProportionToZ = 0,
+  zInProportionToX = 0,
+  zInProportionToY = 0
+} = {}): Matrix {
   const result = identityGrid(4);
   result[0][1] = xInProportionToY;
   result[0][2] = xInProportionToZ;

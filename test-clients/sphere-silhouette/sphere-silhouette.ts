@@ -14,8 +14,8 @@ export function drawSilhouette(canvasSize: number): void {
   const wallZCoordinate = 10;
   const wallSize = 7.0;
   const pixelSizeInWorldUnits = wallSize / canvasSize;
-  const sphere = new Sphere());
-  sphere.transform = shearTransformation(1, 0, 0, 0, 0, 0).scale(1, 0.5, 1);
+  const sphere = new Sphere();
+  sphere.transform = shearTransformation({ xInProportionToY: 1 }).scale(1, 0.5, 1);
 
   for (const y of range(0, canvas.height())) {
     const worldYCoordinate = wallSize / 2 - pixelSizeInWorldUnits * y;
