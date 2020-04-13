@@ -126,4 +126,18 @@ describe('the Ray class', () => {
 
     expect(intersections.length).toEqual(0);
   });
+
+  it('produces the correct intersections when intersecting with multiple actors', () => {
+    const ray = new Ray(point(0, 0, -5), vector(0, 0, 1));
+    const sphereOne = new Sphere();
+    const sphereTwo = new Sphere();
+    sphereOne.transform = translationTransformation(0, 0, 5);
+    const intersections = ray.intersects([sphereOne, sphereTwo]).intersections();
+
+    expect(intersections.length).toEqual(4);
+    expect(equal(intersections[0].t, 4)).toBeTruthy();
+    expect(equal(intersections[1].t, 6)).toBeTruthy();
+    expect(equal(intersections[2].t, 9)).toBeTruthy();
+    expect(equal(intersections[3].t, 11)).toBeTruthy();
+  });
 });

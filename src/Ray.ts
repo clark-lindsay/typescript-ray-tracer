@@ -37,11 +37,10 @@ export class Ray {
         sphere,
         this.transform(sphere.transform.inverse())
       );
-      if (discriminant < 0) {
-        return new IntersectionCollection();
+      if (discriminant >= 0) {
+        result.add(new Intersection(t1, sphere));
+        result.add(new Intersection(t2, sphere));
       }
-      result.add(new Intersection(t1, sphere));
-      result.add(new Intersection(t2, sphere));
     }
     return result;
 
