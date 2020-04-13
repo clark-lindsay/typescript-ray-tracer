@@ -69,7 +69,7 @@ describe('the "defaultWorld" test set-up function', () => {
   });
 });
 
-function defaultWorld(): World {
+export function defaultWorld(): World {
   const light = new PointLight(new Color(1, 1, 1), point(-10, 10, -10));
   const outerSphere = new Sphere({
     material: new Material({ color: new Color(0.8, 1.0, 0.6), diffuse: 0.7, specular: 0.2 })

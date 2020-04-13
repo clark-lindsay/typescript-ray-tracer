@@ -2,6 +2,9 @@ import { Camera } from '../src/Camera';
 import { equal } from '../src/equal';
 import { point, vector } from '../src/Tuple';
 import { Axes } from '../src/Matrix';
+import { defaultWorld } from './World.test';
+import { Color } from '../src/Color';
+import { viewTransformation } from '../src/transformations';
 
 describe('the Camera class', () => {
   it('can determine the proper pixel size (in world coordinates) for an image canvas of a certain size', () => {
@@ -28,5 +31,18 @@ describe('the Camera class', () => {
 
     expect(transformedCenterRay.origin.isEqualTo(point(0, 2, -5))).toBeTruthy();
     expect(transformedCenterRay.direction.isEqualTo(vector(Math.sqrt(2) / 2, 0, -Math.sqrt(2) / 2))).toBeTruthy();
+  });
+
+  it('can render a World to a Canvas', () => {
+    const camera = new Camera(11, 11, Math.PI / 2);
+    camera.transform = viewTransformation({
+      eyePosition: point(0, 0, -5),
+      eyeFocus: point(0, 0, 0),
+      upRelativeToEye: vector(0, 1, 0)
+    });
+    const world = defaultWorld();
+    const image = camera.render(world);
+
+    expect(image.pixelAt(5, 5).isEqualTo(new Color(0.38066, 0.47583, 0.2855))).toBeTruthy();
   });
 });

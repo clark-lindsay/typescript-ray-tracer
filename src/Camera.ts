@@ -1,6 +1,9 @@
 import { Matrix, identityMatrix } from './Matrix';
 import { Ray } from './Ray';
 import { point } from './Tuple';
+import { World } from './World';
+import { Canvas } from './Canvas';
+import { range } from './util';
 
 export class Camera {
   horizontalSize: number;
@@ -22,6 +25,16 @@ export class Camera {
       aspectRatio >= 1 ? [halfView / aspectRatio, halfView] : [halfView, halfView * aspectRatio];
     this.pixelSize = (this.halfWidth * 2) / this.horizontalSize;
     this.halfHeight;
+  }
+
+  render(world: World): Canvas {
+    const result = new Canvas(this.horizontalSize, this.verticalSize);
+    for (const y of range(0, result.height())) {
+      for (const x of range(0, result.width())) {
+        result.setPixelAt(x, y, world.colorAtHit(this.rayForPixel(x, y)));
+      }
+    }
+    return result;
   }
 
   rayForPixel(xCanvasCoordinate: number, yCanvasCoordinate: number): Ray {
