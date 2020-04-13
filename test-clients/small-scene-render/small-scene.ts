@@ -7,6 +7,8 @@ import { Color } from '../../src/Color';
 import { scalingTransformation, viewTransformation } from '../../src/transformations';
 import { point, vector } from '../../src/Tuple';
 import { Axes } from '../../src/Matrix';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 renderSmallScene(1000, 500);
 
@@ -20,7 +22,7 @@ export function renderSmallScene(imageWidth: number, imageHeight: number): void 
   });
 
   const image = camera.render(world);
-  image.writePPM(`${__dirname}/scene`);
+  image.writePPM(`${dirname(fileURLToPath(import.meta.url))}/scene`);
 }
 
 function smallWorld(): World {
