@@ -4,16 +4,11 @@ import { PointLight } from '../../src/PointLight';
 import { Sphere } from '../../src/Sphere';
 import { Material } from '../../src/Material';
 import { Color } from '../../src/Color';
-import {
-  scalingTransformation,
-  viewTransformation,
-  translationTransformation,
-  yRotationTransformation,
-  xRotationTransformation
-} from '../../src/transformations';
+import { scalingTransformation, viewTransformation } from '../../src/transformations';
 import { point, vector } from '../../src/Tuple';
+import { Axes } from '../../src/Matrix';
 
-renderSmallScene(100, 50);
+renderSmallScene(1000, 500);
 
 export function renderSmallScene(imageWidth: number, imageHeight: number): void {
   const world = smallWorld();
@@ -32,29 +27,29 @@ function smallWorld(): World {
   const result = new World();
   const floor = largeFlattenedSphere();
   const leftWall = largeFlattenedSphere();
-  leftWall.transform = translationTransformation(0, 0, 5)
-    .cross(yRotationTransformation(-Math.PI / 4))
-    .cross(xRotationTransformation(Math.PI / 2))
-    .cross(scalingTransformation(10, 0.01, 10));
+  leftWall.transform = leftWall.transform
+    .rotate(Axes.X, Math.PI / 2)
+    .rotate(Axes.Y, -Math.PI / 4)
+    .translate(0, 0, 5);
   const rightWall = largeFlattenedSphere();
-  rightWall.transform = translationTransformation(0, 0, 5)
-    .cross(yRotationTransformation(Math.PI / 4))
-    .cross(xRotationTransformation(Math.PI / 2))
-    .cross(scalingTransformation(10, 0.01, 10));
+  rightWall.transform = rightWall.transform
+    .rotate(Axes.X, Math.PI / 2)
+    .rotate(Axes.Y, Math.PI / 4)
+    .translate(0, 0, 5);
   const centerSphere = new Sphere({
     material: new Material({ color: new Color(0.1, 1, 0.5), diffuse: 0.7, specular: 0.3 })
   });
-  centerSphere.transform = translationTransformation(-0.5, 1, 0.5);
+  centerSphere.transform = centerSphere.transform.translate(-0.5, 1, 0.5);
 
   const rightSphere = new Sphere({
     material: new Material({ color: new Color(0.5, 1, 0.1), diffuse: 0.7, specular: 0.3 })
   });
-  rightSphere.transform = translationTransformation(1.5, 0.5, -0.5).cross(scalingTransformation(0.5, 0.5, 0.5));
+  rightSphere.transform = rightSphere.transform.scale(0.5, 0.5, 0.5).translate(1.5, 0.5, -0.5);
 
   const leftSphere = new Sphere({
     material: new Material({ color: new Color(1, 0.8, 0.1), diffuse: 0.7, specular: 0.3 })
   });
-  leftSphere.transform = translationTransformation(-1.5, 0.33, -0.75).cross(scalingTransformation(0.33, 0.33, 0.33));
+  leftSphere.transform = leftSphere.transform.scale(0.33, 0.33, 0.33).translate(-1.5, 0.33, -0.75);
 
   result.addActor(floor);
   result.addActor(leftWall);
