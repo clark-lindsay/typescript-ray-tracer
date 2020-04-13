@@ -25,15 +25,20 @@ export class Camera {
   }
 
   rayForPixel(xCanvasCoordinate: number, yCanvasCoordinate: number): Ray {
-    const xOffset = (xCanvasCoordinate + 0.5) * this.pixelSize;
-    const yOffset = (yCanvasCoordinate + 0.5) * this.pixelSize;
-    const xWorldCoordinate = this.halfWidth - xOffset;
-    const yWorldCoordinate = this.halfHeight - yOffset;
+    const [xWorldCoordinate, yWorldCoordinate] = this.worldCoordinates(xCanvasCoordinate, yCanvasCoordinate);
 
     const rayOrigin = this.transform.inverse().multipliedBy(point(0, 0, 0));
     const targetCoordinates = this.transform.inverse().multipliedBy(point(xWorldCoordinate, yWorldCoordinate, -1));
     const rayDirection = targetCoordinates.subtract(rayOrigin).normalize();
 
     return new Ray(rayOrigin, rayDirection);
+  }
+
+  private worldCoordinates(xCanvasCoordinate: number, yCanvasCoordinate: number): [number, number] {
+    const xOffsetFromEdgeOfCanvas = (xCanvasCoordinate + 0.5) * this.pixelSize;
+    const yOffsetFromEdgeOfCanvas = (yCanvasCoordinate + 0.5) * this.pixelSize;
+    const xWorldCoordinate = this.halfWidth - xOffsetFromEdgeOfCanvas;
+    const yWorldCoordinate = this.halfHeight - yOffsetFromEdgeOfCanvas;
+    return [xWorldCoordinate, yWorldCoordinate];
   }
 }

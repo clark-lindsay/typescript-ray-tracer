@@ -12,7 +12,7 @@ describe('the Camera class', () => {
     expect(equal(tallCanvasCamera.pixelSize, 0.01)).toBeTruthy();
   });
 
-  it('can cast a ray through a pixel on the canvas when the camera has not been transformed', () => {
+  it('can cast a ray through any point on the canvas, regardless of the transform of the camera', () => {
     const camera = new Camera(201, 101, Math.PI / 2);
     const centerRay = camera.rayForPixel(100, 50);
     const cornerRay = camera.rayForPixel(0, 0);
@@ -21,14 +21,12 @@ describe('the Camera class', () => {
     expect(centerRay.direction.isEqualTo(vector(0, 0, -1))).toBeTruthy();
     expect(cornerRay.origin.isEqualTo(point(0, 0, 0))).toBeTruthy();
     expect(cornerRay.direction.isEqualTo(vector(0.66519, 0.33259, -0.66851))).toBeTruthy();
-  });
 
-  it('can cast a ray through any point on the canvas when the camera has been transformed', () => {
-    const camera = new Camera(201, 101, Math.PI / 2);
-    camera.transform = camera.transform.translate(0, -2, 5).rotate(Axes.Y, Math.PI / 4);
-    const centerRay = camera.rayForPixel(100, 50);
+    const transformedCamera = new Camera(201, 101, Math.PI / 2);
+    transformedCamera.transform = transformedCamera.transform.translate(0, -2, 5).rotate(Axes.Y, Math.PI / 4);
+    const transformedCenterRay = transformedCamera.rayForPixel(100, 50);
 
-    expect(centerRay.origin.isEqualTo(point(0, 2, -5))).toBeTruthy();
-    expect(centerRay.direction.isEqualTo(vector(Math.sqrt(2) / 2, 0, -Math.sqrt(2) / 2))).toBeTruthy();
+    expect(transformedCenterRay.origin.isEqualTo(point(0, 2, -5))).toBeTruthy();
+    expect(transformedCenterRay.direction.isEqualTo(vector(Math.sqrt(2) / 2, 0, -Math.sqrt(2) / 2))).toBeTruthy();
   });
 });
