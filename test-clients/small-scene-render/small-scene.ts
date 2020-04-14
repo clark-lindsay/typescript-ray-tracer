@@ -9,7 +9,7 @@ import { point, vector } from '../../src/Tuple';
 import { Axes } from '../../src/Matrix';
 import { dirname } from 'path';
 
-renderSmallScene(100, 50);
+renderSmallScene(200, 100);
 
 export function renderSmallScene(imageWidth: number, imageHeight: number): void {
   const world = smallWorld();
@@ -45,7 +45,11 @@ function smallWorld(): World {
   const rightSphere = new Sphere({
     material: new Material({ color: new Color(0.5, 1, 0.1), diffuse: 0.7, specular: 0.3 })
   });
-  rightSphere.transform = rightSphere.transform.scale(0.5, 0.5, 0.5).translate(1.5, 0.5, -0.5);
+  rightSphere.transform = rightSphere.transform
+    .scale(0.5, 0.5, 0.5)
+    .translate(1.5, 0.5, -0.5)
+    .shear({ yInProportionToX: 1.4 })
+    .rotate(Axes.X, Math.PI / 4);
 
   const leftSphere = new Sphere({
     material: new Material({ color: new Color(1, 0.8, 0.1), diffuse: 0.7, specular: 0.3 })
