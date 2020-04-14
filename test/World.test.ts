@@ -50,6 +50,33 @@ describe('The World class', () => {
 
     expect(world.colorAtHit(ray).isEqualTo(innerSphere.material.color)).toBeTruthy();
   });
+
+  it('can determine whether or not a point is in shadow', () => {
+    const world = defaultWorld();
+    const above = point(0, 10, 0);
+    const behind = point(10, -10, 10);
+    const closeToAndBehind = point(0.5, -0.7, 0.5);
+    const behindLight = point(-20, 20, -20);
+    const betweenLightAndSphere = point(-2, 2, -2);
+
+    expect(world.isShadowed(above, world.lights()[0])).toBeFalsy();
+    expect(world.isShadowed(behind, world.lights()[0])).toBeTruthy();
+    expect(world.isShadowed(closeToAndBehind, world.lights()[0])).toBeTruthy();
+    expect(world.isShadowed(behindLight, world.lights()[0])).toBeFalsy();
+    expect(world.isShadowed(betweenLightAndSphere, world.lights()[0])).toBeFalsy();
+  });
+
+  it('a point in shadow will be properly shaded', () => {
+    const world = new World();
+    world.addLight(new PointLight(new Color(1, 1, 1), point(0, 0, -10)));
+    world.addActor(new Sphere());
+    const sphere2 = new Sphere();
+    sphere2.transform = sphere2.transform.translate(0, 0, 10);
+    world.addActor(sphere2);
+    const ray = new Ray(point(0, 0, 5), vector(0, 0, 1));
+
+    expect(world.colorAtHit(ray).isEqualTo(new Color(0.1, 0.1, 0.1))).toBeTruthy();
+  });
 });
 
 describe('the "defaultWorld" test set-up function', () => {

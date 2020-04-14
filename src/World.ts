@@ -4,6 +4,7 @@ import { IntersectionCollection } from './IntersectionCollection';
 import { Sphere } from './Sphere';
 import { HitData } from './interfaces';
 import { Color } from './Color';
+import { Tuple } from './Tuple';
 import { lighting } from './lighting';
 import { hit } from './hit';
 
@@ -41,6 +42,17 @@ export class World {
       return this.shadeFromHitData(firstIntersection.hitData(ray));
     }
     return new Color(0, 0, 0);
+  }
+
+  isShadowed(point: Tuple, light: PointLight): boolean {
+    const pointToLight = light.position.subtract(point);
+    const distance = pointToLight.magnitude();
+    const directionToLight = new Ray(point, pointToLight.normalize());
+    const possibleObstruction = hit(this.intersect(directionToLight));
+    if (possibleObstruction && possibleObstruction.t < distance) {
+      return true;
+    }
+    return false;
   }
 
   private shadeFromHitData(hitData: HitData): Color {

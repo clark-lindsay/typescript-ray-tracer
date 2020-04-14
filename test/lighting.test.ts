@@ -64,4 +64,19 @@ describe('the reflection of a Material under different conditions', () => {
       )
     ).toBeTruthy();
   });
+
+  it('lights correctly when the surface is in shadow', () => {
+    const material = new Material();
+    const pointBeingLit = point(0, 0, 0);
+
+    const normalAtPointBeingLit = vector(0, 0, -1);
+    const eyePosition = point(0, 0, -1);
+    const light = new PointLight(new Color(1, 1, 1), point(0, 0, -10));
+
+    expect(
+      lighting({ material, light, pointBeingLit, eyePosition, normalAtPointBeingLit, pointIsInShadow: true }).isEqualTo(
+        new Color(0.1, 0.1, 0.1)
+      )
+    ).toBeTruthy();
+  });
 });

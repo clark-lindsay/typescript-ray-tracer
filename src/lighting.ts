@@ -10,7 +10,8 @@ export function lighting({
   light,
   pointBeingLit,
   eyePosition,
-  normalAtPointBeingLit
+  normalAtPointBeingLit,
+  pointIsInShadow = false
 }: LightingArguments): Color {
   const result = { ambient: black, diffuse: black, specular: black };
 
@@ -20,6 +21,7 @@ export function lighting({
   const cosineOfAngleBetweenLightAndNormal = directionToLightSource.dotProduct(normalAtPointBeingLit);
 
   result.ambient = ambientComponent();
+  if (pointIsInShadow) return result.ambient;
   if (cosineOfAngleBetweenLightAndNormal < 0) {
     [result.diffuse, result.specular] = [black, black];
   } else {
@@ -55,6 +57,7 @@ interface LightingArguments {
   pointBeingLit: Tuple;
   eyePosition: Tuple;
   normalAtPointBeingLit: Tuple;
+  pointIsInShadow?: boolean;
 }
 
 function calculateSpecularComponent(
