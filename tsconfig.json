@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "types": ["node", "jest"],
-    "target": "ESNext",
+    "target": "ES6",
     "module": "commonjs",
     "esModuleInterop": true,
     "noUnusedLocals": true,

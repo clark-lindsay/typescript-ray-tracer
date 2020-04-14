@@ -8,9 +8,8 @@ import { scalingTransformation, viewTransformation } from '../../src/transformat
 import { point, vector } from '../../src/Tuple';
 import { Axes } from '../../src/Matrix';
 import { dirname } from 'path';
-import { fileURLToPath } from 'url';
 
-renderSmallScene(1000, 500);
+renderSmallScene(100, 50);
 
 export function renderSmallScene(imageWidth: number, imageHeight: number): void {
   const world = smallWorld();
@@ -22,7 +21,7 @@ export function renderSmallScene(imageWidth: number, imageHeight: number): void 
   });
 
   const image = camera.render(world);
-  image.writePPM(`${dirname(fileURLToPath(import.meta.url))}/scene`);
+  image.writePPM(`${dirname(__filename)}/scene`);
 }
 
 function smallWorld(): World {
