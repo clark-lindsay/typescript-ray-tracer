@@ -7,7 +7,6 @@ describe('the Matrix class', () => {
     const matrix = new Matrix([range(0, 4), range(4, 8), range(8, 12), range(12, 16)]);
 
     expect(matrix.size()).toEqual(4);
-    expect(matrix.size()).toEqual(4);
 
     expect(matrix.at(0, 0)).toEqual(0);
     expect(matrix.at(1, 2)).toEqual(6);

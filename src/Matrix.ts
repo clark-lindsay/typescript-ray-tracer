@@ -1,14 +1,14 @@
-import { range } from './util';
 import { equal } from './equal';
-import { Tuple } from './Tuple';
 import {
+  scalingTransformation,
+  shearTransformation,
+  translationTransformation,
   xRotationTransformation,
   yRotationTransformation,
-  zRotationTransformation,
-  translationTransformation,
-  scalingTransformation,
-  shearTransformation
+  zRotationTransformation
 } from './transformations';
+import { Tuple } from './Tuple';
+import { range } from './util';
 
 export class Matrix {
   private grid: number[][];
